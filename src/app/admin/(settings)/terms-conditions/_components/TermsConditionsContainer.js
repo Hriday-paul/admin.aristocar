@@ -24,18 +24,18 @@ export default function TermsConditionsContainer() {
   const termsAndConditions = data?.data?.data[0]?.termsAndConditions || "";
 
   const onSubmit = async () => {
-    try {
-      const res = await updateFn({
-        termsAndConditions: content,
-      }).unwrap();
-      if (res?.success) {
-        SuccessModal("AboutUs is updated");
-      }
-    } catch (error) {
-      ErrorModal("Error updating AboutUs");
-    } finally {
-      toast.dismiss("content");
-    }
+    // try {
+    //   const res = await updateFn({
+    //     termsAndConditions: content,
+    //   }).unwrap();
+    //   if (res?.success) {
+    //     SuccessModal("AboutUs is updated");
+    //   }
+    // } catch (error) {
+    //   ErrorModal("Error updating AboutUs");
+    // } finally {
+    //   toast.dismiss("content");
+    // }
   };
   return (
     <section>

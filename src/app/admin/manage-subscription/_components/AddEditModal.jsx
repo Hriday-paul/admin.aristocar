@@ -31,24 +31,24 @@ export default function CreateProductModal({ children, isEdit, data }) {
 
     const handelSubmit = async (data) => {
 
-        try {
-            const formData = new FormData();
+        // try {
+        //     const formData = new FormData();
 
-            formData.append("data", JSON.stringify(data));
+        //     formData.append("data", JSON.stringify(data));
 
-            const res = await createPr(formData).unwrap();
+        //     const res = await createPr(formData).unwrap();
 
-            SuccessModal(res?.message);
-            if (res?.success) {
-                form.reset();
-                setOpen(false);
-            }
-        } catch (error) {
-            console.log(error);
-            ErrorModal(error?.message || error?.data?.message);
-        } finally {
-            toast.dismiss("category");
-        }
+        //     SuccessModal(res?.message);
+        //     if (res?.success) {
+        //         form.reset();
+        //         setOpen(false);
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        //     ErrorModal(error?.message || error?.data?.message);
+        // } finally {
+        //     toast.dismiss("category");
+        // }
     };
 
     return (

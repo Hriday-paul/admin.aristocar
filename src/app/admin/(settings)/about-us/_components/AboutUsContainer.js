@@ -23,18 +23,18 @@ export default function AboutUsContainer() {
   const aboutUs = data?.data?.data[0]?.aboutUs || "";
 
   const onSubmit = async () => {
-    try {
-      const res = await updateFn({
-        aboutUs: content,
-      }).unwrap();
-      if (res?.success) {
-        SuccessModal("AboutUs is updated");
-      }
-    } catch (error) {
-      ErrorModal("Error updating AboutUs");
-    } finally {
-      toast.dismiss("content");
-    }
+    // try {
+    //   const res = await updateFn({
+    //     aboutUs: content,
+    //   }).unwrap();
+    //   if (res?.success) {
+    //     SuccessModal("AboutUs is updated");
+    //   }
+    // } catch (error) {
+    //   ErrorModal("Error updating AboutUs");
+    // } finally {
+    //   toast.dismiss("content");
+    // }
   };
   return (
     <section>

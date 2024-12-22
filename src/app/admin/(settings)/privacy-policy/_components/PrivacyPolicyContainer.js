@@ -28,18 +28,18 @@ export default function PrivacyPolicyContainer() {
     privacyPolicyRes?.data?.data[0]?.privacyPolicy || "";
 
   const onSubmit = async () => {
-    try {
-      const res = await updateFn({
-        privacyPolicy: content,
-      }).unwrap();
-      if (res?.success) {
-        SuccessModal("Privacy policy is updated");
-      }
-    } catch (error) {
-      ErrorModal("Error updating privacy policy");
-    } finally {
-      toast.dismiss("content");
-    }
+    // try {
+    //   const res = await updateFn({
+    //     privacyPolicy: content,
+    //   }).unwrap();
+    //   if (res?.success) {
+    //     SuccessModal("Privacy policy is updated");
+    //   }
+    // } catch (error) {
+    //   ErrorModal("Error updating privacy policy");
+    // } finally {
+    //   toast.dismiss("content");
+    // }
   };
 
   return (

@@ -22,8 +22,8 @@ const  AddMostWanted = ({ children, id })=> {
   const [description, setDescription] = useState(null);
   const [images, setImages] = useState([]);
   const fileInputRef = useRef(null);
-
   const form = useForm();
+
   const handleIconClick = () => {
     // Programmatically click the hidden file input
     if (fileInputRef.current) {
@@ -34,38 +34,38 @@ const  AddMostWanted = ({ children, id })=> {
 
   const handelSubmit = async (data) => {
     data.description = description;
-    try {
-      if (!images?.length) {
-        return ErrorModal("Please Select images");
-      }
-      const formData = new FormData();
+    // try {
+    //   if (!images?.length) {
+    //     return ErrorModal("Please Select images");
+    //   }
+    //   const formData = new FormData();
 
-      if (images?.length > 3) {
-        ErrorResponse({ message: "You can only upload up to 3 photos." });
-        return;
-      }
+    //   if (images?.length > 3) {
+    //     ErrorResponse({ message: "You can only upload up to 3 photos." });
+    //     return;
+    //   }
 
-      images.forEach((image) => {
-        formData.append(`images`, image);
-      });
+    //   images.forEach((image) => {
+    //     formData.append(`images`, image);
+    //   });
 
-      formData.append("data", JSON.stringify(data));
+    //   formData.append("data", JSON.stringify(data));
 
-      const res = await createFn(formData).unwrap();
+    //   const res = await createFn(formData).unwrap();
 
-      SuccessModal(res?.message);
-      if (res?.success) {
-        form.reset();
-        setDescription(null);
-        setImages([]);
-        setOpen(false);
-      }
-    } catch (error) {
-      console.log(error);
-      ErrorModal(error?.message || error?.data?.message);
-    } finally {
-      toast.dismiss("category");
-    }
+    //   SuccessModal(res?.message);
+    //   if (res?.success) {
+    //     form.reset();
+    //     setDescription(null);
+    //     setImages([]);
+    //     setOpen(false);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   ErrorModal(error?.message || error?.data?.message);
+    // } finally {
+    //   toast.dismiss("category");
+    // }
   };
   return (
     <>
