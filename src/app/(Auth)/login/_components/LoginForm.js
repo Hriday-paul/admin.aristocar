@@ -54,7 +54,7 @@ export default function LoginForm() {
         <p className="">Enter your email and password to access admin panel</p>
       </section>
 
-      <FormWrapper onSubmit={onLoginSubmit} resolver={zodResolver(loginSchema)}>
+      <FormWrapper onSubmit={onLoginSubmit} resolver={zodResolver(loginSchema)} defaultValues={{email : "admin@gmail.com", password : "112233"}}>
         <UInput
           name="email"
           type="email"
