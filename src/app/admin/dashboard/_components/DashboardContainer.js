@@ -25,7 +25,7 @@ export default function DashboardContainer() {
     monthlyIncome: dashboardRes?.data?.monthlyIncome || 0,
     userDetails: dashboardRes?.data?.userData || 0,
     totalIncome: dashboardRes?.data?.totalIncome || 0,
-    monthlyUsers: dashboardRes?.data?.monthlyUsers || [{ month: "Jan", user: 10 }, { month: "Feb", user: 20 }, { month: "Mar", user: 50 }, { month: "Apr", user: 100 }],
+    monthlyUsers: dashboardRes?.data?.monthlyUsers || [{ month: "Jan", user: 10 }, { month: "Feb", user: 20 }, { month: "Mar", user: 50 }, { month: "Apr", user: 100 },{ month: "May", user: 40 }, { month: "Jun", user: 74 }, { month: "July", user: 90 }, { month: "Aug", user: 150 }, { month: "Sep", user: 95 }, { month: "Oct", user: 120 }, { month: "Nov", user: 32 }, { month: "Dec", user: 200 }],
     transactions: dashboardRes?.data?.transactions || 0,
     totalUsers: dashboardRes?.data?.totalUsers || 0
   };

@@ -70,7 +70,7 @@ export default function ProfileModal({
           <h5 className=" font-bold">Account Type</h5>
           <p className="font-dmSans">
             <Tag color="cyan" className="!text-sm !mt-1 !font-semibold">
-              {modalData?.role === "user" ? "customer" : "service provider"}
+              {modalData?.role === "user" ? "user" : "delear"}
             </Tag>
           </p>
         </div>

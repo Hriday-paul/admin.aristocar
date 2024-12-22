@@ -1,7 +1,7 @@
 "use client";
 
 import "./Sidebar.css";
-import logo from "@/assets/logos/logo.png";
+import logo from "../../../../public/favicon1.svg";
 import { logout } from "@/redux/features/authSlice";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
