@@ -13,12 +13,14 @@ import { useGetProfileQuery } from "@/redux/api/userApi";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 import { useUpdateProfileMutation } from "@/redux/api/authApi";
 import { showImage } from "@/utils/showImage";
+import { dummyData } from "./dummyData";
 
 const { TabPane } = Tabs;
 
 export default function ProfileContainer() {
-  const { data: profileRes, refetch } = useGetProfileQuery();
-  const [updateProfileFn, { isLoading }] = useUpdateProfileMutation();
+  // const { data: profileRes, refetch } = useGetProfileQuery();
+  // const [updateProfileFn, { isLoading }] = useUpdateProfileMutation();
+  const profileRes = dummyData, isLoading = false
   const ref = useRef(null);
   const [profile, setProfile] = useState(null);
   const profileData = profileRes?.data || {};
@@ -26,23 +28,23 @@ export default function ProfileContainer() {
     ref.current?.click();
   };
   const handelToUpdateProfile = async (data) => {
-    try {
-      const formData = new FormData();
-      if (profile) {
-        formData.append("image", profile);
-      }
+    // try {
+    //   const formData = new FormData();
+    //   if (profile) {
+    //     formData.append("image", profile);
+    //   }
 
-      formData.append("data", JSON.stringify(data));
-      const res = await updateProfileFn(formData).unwrap();
-      SuccessModal("Profile updated successfully");
+    //   formData.append("data", JSON.stringify(data));
+    //   const res = await updateProfileFn(formData).unwrap();
+    //   SuccessModal("Profile updated successfully");
 
-      if (res.success) {
-        refetch();
-      }
-    } catch (err) {
-      console.log(err);
-      ErrorModal(err?.message || err?.data?.message);
-    }
+    //   if (res.success) {
+    //     refetch();
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    //   ErrorModal(err?.message || err?.data?.message);
+    // }
   };
 
   return (

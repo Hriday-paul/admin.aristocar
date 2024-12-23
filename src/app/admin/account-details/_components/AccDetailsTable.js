@@ -22,6 +22,7 @@ import {
 import moment from "moment";
 import toast from "react-hot-toast";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
+import { dummyData } from "./dummyData";
 
 // Dummy table Data
 const data = Array.from({ length: 5 }).map((_, inx) => ({
@@ -42,47 +43,50 @@ export default function AccDetailsTable() {
   query["role"] = "!admin";
   query["limit"] = 999999999999999;
   query["searchTerm"] = searchText;
-  const { data: usersRes, isLoading, isFetching } = useGetAllUserQuery(query);
+  // const { data: usersRes, isLoading, isFetching } = useGetAllUserQuery(query);
+  const usersRes = dummyData, isLoading = false, isFetching = false
   const userData = usersRes?.data?.data || [];
   const [profileModalOpen, setProfileModalOpen] = useState(false);
-  const [BlockUnBlockedFn, { isSuccess }] = useUpdateUserMutation();
+  // const [BlockUnBlockedFn, { isSuccess }] = useUpdateUserMutation();
   // const [deleteFn] = useDeleteUserMutation();
+
+ 
 
   // Block user handler
   const BlockUser = async (id) => {
-    toast.loading("blocking...", { id: "Block", duration: 2000 });
-    try {
-      const res = await BlockUnBlockedFn({
-        id,
-        data: { status: "blocked" },
-      }).unwrap();
+    // toast.loading("blocking...", { id: "Block", duration: 2000 });
+    // try {
+    //   const res = await BlockUnBlockedFn({
+    //     id,
+    //     data: { status: "blocked" },
+    //   }).unwrap();
 
-      if (res?.success) {
-        SuccessModal("this user block success");
-      } else {
-        ErrorModal(res?.message);
-      }
-    } catch (error) {
-      ErrorModal(error?.message || error?.data?.message);
-    }
+    //   if (res?.success) {
+    //     SuccessModal("this user block success");
+    //   } else {
+    //     ErrorModal(res?.message);
+    //   }
+    // } catch (error) {
+    //   ErrorModal(error?.message || error?.data?.message);
+    // }
   };
 
   const UnBlockUser = async (id) => {
     toast.loading("Unblocking...", { id: "Block", duration: 3000 });
-    try {
-      const res = await BlockUnBlockedFn({
-        id,
-        data: { status: "active" },
-      }).unwrap();
+    // try {
+    //   const res = await BlockUnBlockedFn({
+    //     id,
+    //     data: { status: "active" },
+    //   }).unwrap();
 
-      if (res?.success) {
-        SuccessModal("this user unblock success");
-      } else {
-        ErrorModal(res?.message);
-      }
-    } catch (error) {
-      ErrorModal(error?.message || error?.data?.message);
-    }
+    //   if (res?.success) {
+    //     SuccessModal("this user unblock success");
+    //   } else {
+    //     ErrorModal(res?.message);
+    //   }
+    // } catch (error) {
+    //   ErrorModal(error?.message || error?.data?.message);
+    // }
   };
 
   // ================== Table Columns ================
@@ -135,7 +139,7 @@ export default function AccDetailsTable() {
           className="flex items-start justify-start"
         />
       ),
-      onFilter: (value, record) => record.status.indexOf(value) === 0,
+      onFilter: (value, record) => record.role == value,
       render: (value) => {
         return (
           <Tag color="default" className="!text-sm">

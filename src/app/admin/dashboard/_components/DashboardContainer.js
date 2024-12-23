@@ -10,6 +10,7 @@ import moment from "moment";
 import Transition from "./Transactions";
 import { FaUserFriends } from "react-icons/fa";
 import { CiDollar } from "react-icons/ci";
+import { dummyData } from "./dummyData";
 
 export default function DashboardContainer() {
   const [incomeYear, setIncomeYear] = useState(moment().format("yyyy"));
@@ -19,15 +20,16 @@ export default function DashboardContainer() {
   const query = {};
   if (incomeYear) query["year"] = incomeYear;
 
-  const { data: dashboardRes } = useGetDashboardDataQuery(query);
+  // const { data: dashboardRes } = useGetDashboardDataQuery(query);
+  const dashboardRes = dummyData
 
   const dashboardData = {
-    monthlyIncome: dashboardRes?.data?.monthlyIncome || 0,
-    userDetails: dashboardRes?.data?.userData || 0,
-    totalIncome: dashboardRes?.data?.totalIncome || 0,
-    monthlyUsers: dashboardRes?.data?.monthlyUsers || [{ month: "Jan", user: 10 }, { month: "Feb", user: 20 }, { month: "Mar", user: 50 }, { month: "Apr", user: 100 },{ month: "May", user: 40 }, { month: "Jun", user: 74 }, { month: "July", user: 90 }, { month: "Aug", user: 150 }, { month: "Sep", user: 95 }, { month: "Oct", user: 120 }, { month: "Nov", user: 32 }, { month: "Dec", user: 200 }],
-    transactions: dashboardRes?.data?.transactions || 0,
-    totalUsers: dashboardRes?.data?.totalUsers || 0
+    monthlyIncome: dashboardRes?.monthlyIncome || 0,
+    userDetails: dashboardRes?.userData || 0,
+    totalIncome: dashboardRes?.totalIncome || 0,
+    monthlyUsers: dashboardRes?.monthlyUsers || [{ month: "Jan", user: 10 }, { month: "Feb", user: 20 }, { month: "Mar", user: 50 }, { month: "Apr", user: 100 },{ month: "May", user: 40 }, { month: "Jun", user: 74 }, { month: "July", user: 90 }, { month: "Aug", user: 150 }, { month: "Sep", user: 95 }, { month: "Oct", user: 120 }, { month: "Nov", user: 32 }, { month: "Dec", user: 200 }],
+    transactions: dashboardRes?.transactions || 0,
+    totalUsers: dashboardRes?.totalUsers || 0
   };
 
   const userStats = [

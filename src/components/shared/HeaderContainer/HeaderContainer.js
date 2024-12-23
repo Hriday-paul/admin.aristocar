@@ -14,14 +14,16 @@ import { socket } from "@/socket";
 import toast from "react-hot-toast";
 import { useGetMyNotificationQuery } from "@/redux/api/notificationApi";
 import { showImage } from "@/utils/showImage";
+import { notificationDummyData, profiledummyData } from "./dummyData";
 const { Header } = Layout;
 
 export default function HeaderContainer({ collapsed, setCollapsed }) {
   const pathname = usePathname();
   const navbarTitle = pathname.split("/admin")[1];
-  const { data: notificationData, refetch } = useGetMyNotificationQuery({
-    read: false,
-  });
+  // const { data: notificationData, refetch } = useGetMyNotificationQuery({
+  //   read: false,
+  // });
+  const notificationData = notificationDummyData, refetch = false
 
   const router = useRouter();
   const userId = useSelector((state) => state.auth?.user?.userId);
@@ -59,9 +61,11 @@ export default function HeaderContainer({ collapsed, setCollapsed }) {
     router.push("/login");
   }
   // Get user info
-  const { data: userRes, refetch: userRefetch } = useGetProfileQuery(null, {
-    skip: !userId,
-  });
+  // const { data: userRes, refetch: userRefetch } = useGetProfileQuery(null, {
+  //   skip: !userId,
+  // });
+
+  const userRes = profiledummyData
 
   const user = userRes?.data || {};
 

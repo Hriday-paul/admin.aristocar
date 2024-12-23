@@ -12,11 +12,15 @@ import { useState } from "react";
 import { Tag } from "antd";
 import EarningModal from "./EarningModal";
 import { useAllEarningsQuery } from "@/redux/api/income.api";
+import { dummyData } from "./dummyData";
 
 export default function EarningsTable() {
   const [showEarningModal, setShowEarningModal] = useState(false);
   const [modalData, setModalData] = useState(null);
-  const { data: earningsRes, isFetching, isLoading } = useAllEarningsQuery();
+  // const { data: earningsRes, isFetching, isLoading } = useAllEarningsQuery();
+
+  const earningsRes = dummyData
+  const isFetching = false,  isLoading = false
 
   const earningsData = earningsRes?.data || [];
 

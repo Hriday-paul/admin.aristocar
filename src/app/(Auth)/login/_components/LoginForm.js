@@ -17,7 +17,8 @@ import { jwtDecode } from "jwt-decode";
 // import { setToSessionStorage } from "@/utils/sessionStorage";
 
 export default function LoginForm() {
-  const [signIn, { isLoading }] = useSignInMutation();
+  // const [signIn, { isLoading }] = useSignInMutation();
+  const isLoading = false
   const userId = useSelector((state) => state.auth?.user?.userid);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,23 +28,47 @@ export default function LoginForm() {
   }
   const onLoginSubmit = async (data) => {
     try {
-      const res = await signIn(data).unwrap();
-      if (res?.success) {
-        SuccessModal("Login Successful");
-        // set user
-        dispatch(
-          setUser({
-            user: jwtDecode(res?.data?.accessToken),
-            token: res?.data?.accessToken,
-          }),
-        );
-        // send user back or home
-        router.push("/admin/dashboard");
-        router.refresh();
+      const dummyUser = {
+        userId: '675a6f97a0e571a3f206e81a',
+        role: "admin",
+        iat: 1734927628,
+        exp: 1737519628
       }
+      const dummyToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzVhNmY5N2EwZTU3MWEzZjIwNmU4MWEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzQ5Mjc2MjgsImV4cCI6MTczNzUxOTYyOH0.cadCO8CnHkhlDyUXXa59yXHnbqRwPbgpGxKDKQTn_-g"
+      dispatch(
+        // setUser({
+        //   user: jwtDecode(res?.data?.accessToken),
+        //   token: res?.data?.accessToken,
+        // }),
+        setUser({
+          user: dummyUser,
+          token: dummyToken,
+        }),
+      );
+      router.push("/admin/dashboard");
+      router.refresh()
+      // const res = await signIn(data).unwrap();
+      // if (res?.success) {
+      //   SuccessModal("Login Successful");
+      //   // set user
+
+      //   dispatch(
+      //     // setUser({
+      //     //   user: jwtDecode(res?.data?.accessToken),
+      //     //   token: res?.data?.accessToken,
+      //     // }),
+      //     setUser({
+      //       user: dummyUser,
+      //       token: dummyToken,
+      //     }),
+      //   );
+      //   // send user back or home
+      //   router.push("/admin/dashboard");
+      //   router.refresh();
+      // }
     } catch (error) {
-      console.log(error);
-      ErrorModal(error?.message || error?.data?.message);
+      // console.log(error);
+      // ErrorModal(error?.message || error?.data?.message);
     }
   };
 
@@ -54,7 +79,7 @@ export default function LoginForm() {
         <p className="">Enter your email and password to access admin panel</p>
       </section>
 
-      <FormWrapper onSubmit={onLoginSubmit} resolver={zodResolver(loginSchema)} defaultValues={{email : "admin@gmail.com", password : "112233"}}>
+      <FormWrapper onSubmit={onLoginSubmit} resolver={zodResolver(loginSchema)} defaultValues={{ email: "admin@gmail.com", password: "112233" }}>
         <UInput
           name="email"
           type="email"

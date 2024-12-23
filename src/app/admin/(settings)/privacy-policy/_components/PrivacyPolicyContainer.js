@@ -14,6 +14,7 @@ import { Edit, Loader } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { dummyData } from "./dummyData";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false,
@@ -22,10 +23,10 @@ const JoditEditor = dynamic(() => import("jodit-react"), {
 export default function PrivacyPolicyContainer() {
   const [content, setContent] = useState("");
   const editor = useRef(null);
-  const { data: privacyPolicyRes, isSuccess } = useGetContentsQuery();
-  const [updateFn, { isLoading }] = useUpdateContentMutation();
-  const privacyPolicyData =
-    privacyPolicyRes?.data?.data[0]?.privacyPolicy || "";
+  // const { data: privacyPolicyRes, isSuccess } = useGetContentsQuery();
+  // const [updateFn, { isLoading }] = useUpdateContentMutation();
+  const privacyPolicyRes = dummyData, isSuccess = true, isLoading = false
+  const privacyPolicyData = privacyPolicyRes?.data?.data[0]?.privacyPolicy || "";
 
   const onSubmit = async () => {
     // try {

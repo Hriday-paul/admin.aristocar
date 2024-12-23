@@ -17,12 +17,12 @@ export default function ChangePassForm() {
   const [changePasswordFn, { isLoading }] = useChangePasswordMutation();
 
   const handleSubmit = async (data) => {
-    try {
-      const res = await changePasswordFn(data).unwrap();
-      SuccessModal("Password changed successfully");
-    } catch (err) {
-      ErrorModal(err?.message || err?.data?.message);
-    }
+    // try {
+    //   const res = await changePasswordFn(data).unwrap();
+    //   SuccessModal("Password changed successfully");
+    // } catch (err) {
+    //   ErrorModal(err?.message || err?.data?.message);
+    // }
   };
 
   return (

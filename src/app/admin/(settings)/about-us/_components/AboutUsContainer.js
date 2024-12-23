@@ -11,6 +11,7 @@ import { Edit, Loader } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { dummyData } from "./dummyData";
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false,
 });
@@ -18,8 +19,9 @@ const JoditEditor = dynamic(() => import("jodit-react"), {
 export default function AboutUsContainer() {
   const [content, setContent] = useState("");
   const editor = useRef(null);
-  const { data: data, isSuccess } = useGetContentsQuery();
-  const [updateFn, { isLoading }] = useUpdateContentMutation();
+  // const { data: data, isSuccess } = useGetContentsQuery();
+  // const [updateFn, { isLoading }] = useUpdateContentMutation();
+  const isLoading = false, data = dummyData, isSuccess = true
   const aboutUs = data?.data?.data[0]?.aboutUs || "";
 
   const onSubmit = async () => {
