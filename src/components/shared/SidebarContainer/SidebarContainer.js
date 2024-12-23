@@ -107,7 +107,7 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
   const currentPathname = usePathname()?.replace("/admin/", "")?.split(" ")[0];
 
   return (
-    <div>
+    <div className="bg-[#FFFFFF] min-h-screen">
       <div className="md:hidden">
         <Drawer title="Basic Drawer" open={openDrawer} onClose={() => setOpenDrawer(false)}>
           <div className="mb-6 flex flex-col items-center justify-center gap-y-5">
@@ -115,13 +115,13 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
               {collapsed ? (
                 <Image
                   src={logo}
-                  alt="Logo Of Before After Story"
+                  alt="Logo Of aristocar"
                   className="h-16 w-auto"
                 />
               ) : (
                 <Image
                   src={logo}
-                  alt="Logo Of Before After Story"
+                  alt="Logo Of aristocar"
                   className="h-16 w-auto"
                 />
               )}
@@ -159,13 +159,13 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
               {collapsed ? (
                 <Image
                   src={logo}
-                  alt="Logo Of Before After Story"
+                  alt="Logo Of aristocar"
                   className="h-16 w-auto"
                 />
               ) : (
                 <Image
                   src={logo}
-                  alt="Logo Of Before After Story"
+                  alt="Logo Of aristocar"
                   className="h-16 w-auto"
                 />
               )}
