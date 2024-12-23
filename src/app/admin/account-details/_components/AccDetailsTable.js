@@ -50,7 +50,7 @@ export default function AccDetailsTable() {
   // const [BlockUnBlockedFn, { isSuccess }] = useUpdateUserMutation();
   // const [deleteFn] = useDeleteUserMutation();
 
- 
+
 
   // Block user handler
   const BlockUser = async (id) => {
@@ -229,10 +229,11 @@ export default function AccDetailsTable() {
   return (
     <ConfigProvider
       theme={{
-        token: {
-          colorPrimary: "#1B70A6",
-          colorInfo: "#1B70A6",
-        },
+        components: {
+          Table: {
+            headerBg: "#0A0A0B",
+          }
+        }
       }}
     >
       <div className="w-1/3 mb-3 ml-auto gap-x-5">
