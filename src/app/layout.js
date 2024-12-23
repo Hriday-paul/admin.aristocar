@@ -20,11 +20,11 @@ const dmSans = DM_Sans({
 
 export const metadata = {
   title: {
-    default: "Before After Story - Discover Real Transformations",
-    template: "%s | Before After Story",
+    default: "Aristocar Admin",
+    template: "%s | Car Sell gallery",
   },
   description:
-    "Before After is a platform that helps people discover real transformation with verified results. Our MoTo - Explore authentic stories of change from trusted businesses. Explore authentic stories of change from trusted businesses",
+    "Find the Best Car Price in Europes. Leading online automotive marketplace in Europes. Cars; ",
 };
 
 export default function RootLayout({ children }) {
