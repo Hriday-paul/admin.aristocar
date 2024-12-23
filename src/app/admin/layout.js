@@ -14,6 +14,7 @@ const { Content } = Layout;
 
 export default function AdminLayout({ children }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   // Check if small screen
   const screenSizeLessThan1300 = useMediaQuery(
@@ -61,13 +62,19 @@ export default function AdminLayout({ children }) {
 
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
-      <SidebarContainer collapsed={sidebarCollapsed}></SidebarContainer>
+
+      <div className="hidden md:block">
+        <SidebarContainer collapsed={sidebarCollapsed} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}></SidebarContainer>
+      </div>
 
       <Layout>
+
         <HeaderContainer
           collapsed={sidebarCollapsed}
           setCollapsed={setSidebarCollapsed}
+          setOpenDrawer={setOpenDrawer}
         ></HeaderContainer>
+
 
         <Content
           style={{
@@ -75,11 +82,12 @@ export default function AdminLayout({ children }) {
             maxHeight: "100vh",
             overflow: "auto",
             backgroundColor: "#232323",
-            paddingInline: "70px",
-            paddingTop: "50px",
+
           }}
         >
-          {children}
+          <div className="px-5 xl:px-16 pt-12">
+            {children}
+          </div>
         </Content>
       </Layout>
     </Layout>

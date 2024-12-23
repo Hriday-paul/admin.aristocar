@@ -36,13 +36,13 @@ export default function DashboardContainer() {
     {
       key: "users",
       title: "Total Users",
-      icon: <FaUserFriends className="text-4xl text-white" />,
+      icon: <FaUserFriends className="text-2xl lg:text-4xl text-white" />,
       count: dashboardData?.totalUsers,
     },
     {
       key: "earning",
       title: "Total Earning",
-      icon: <CiDollar className="text-4xl text-white" />,
+      icon: <CiDollar className="text-2xl lg:text-4xl text-white" />,
       count: dashboardData?.totalIncome,
     },
   ];
@@ -52,14 +52,14 @@ export default function DashboardContainer() {
       {/* User Stats Section */}
       <section className="grid grid-cols-2 gap-5">
         {userStats?.map((stat) => (
-          <div key={stat.key} className="text-white flex-center-start gap-x-4 bg-secondary p-8">
-            <div className="p-4 bg-primary flex-center rounded-full text-white ">
+          <div key={stat.key} className="text-white flex-center-start gap-x-4 bg-secondary p-4 lg:p-8">
+            <div className="p-2 lg:p-4 bg-primary flex-center rounded-full text-white ">
               {stat.icon}
             </div>
 
             <div>
-              <p className="text-lg font-medium font-dmSans">{stat.title}</p>
-              <h5 className="mt-0.5 text-3xl font-semibold text-white">
+              <p className="text-base lg:text-lg font-medium font-dmSans">{stat.title}</p>
+              <h5 className="mt-0.5 text-xl lg:text-3xl font-semibold text-white">
                 {stat.key !== "earning" ? (
                   <CustomCountUp end={stat.count} />
                 ) : (
@@ -74,7 +74,7 @@ export default function DashboardContainer() {
       </section>
 
       {/* Charts  */}
-      <section className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <section className="grid grid-cols-1 gap-10 lg:grid-cols-2">
         <UsersChart
           setRole={setRole}
           role={role}

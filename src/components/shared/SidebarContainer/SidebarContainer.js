@@ -20,8 +20,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import { Drawer } from 'antd';
 
-const SidebarContainer = ({ collapsed }) => {
+const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -32,6 +33,11 @@ const SidebarContainer = ({ collapsed }) => {
       router.push("/");
 
       Success_model({ title: "Logout successful" });
+    }
+    else {
+      if (openDrawer) {
+        setOpenDrawer(prev => !prev)
+      }
     }
   };
 
@@ -101,47 +107,81 @@ const SidebarContainer = ({ collapsed }) => {
   const currentPathname = usePathname()?.replace("/admin/", "")?.split(" ")[0];
 
   return (
-    <Sider
-      width={320}
-      theme="light"
-      trigger={null}
-      collapsible
-      collapsed={collapsed}
-      style={{
-        paddingInline: `${!collapsed ? "10px" : "4px"}`,
-        paddingBlock: "30px",
-        backgroundColor: "white",
-        maxHeight: "100vh",
-        overflow: "auto",
-      }}
-      className="scroll-hide"
-    >
-      <div className="mb-6 flex flex-col items-center justify-center gap-y-5">
-        <Link href={"/"}>
-          {collapsed ? (
-            <Image
-              src={logo}
-              alt="Logo Of Before After Story"
-              className="h-16 w-auto"
-            />
-          ) : (
-            <Image
-              src={logo}
-              alt="Logo Of Before After Story"
-              className="h-16 w-auto"
-            />
-          )}
-        </Link>
+    <div>
+      <div className="md:hidden">
+        <Drawer title="Basic Drawer" open={openDrawer} onClose={() => setOpenDrawer(false)}>
+          <div className="mb-6 flex flex-col items-center justify-center gap-y-5">
+            <Link href={"/"}>
+              {collapsed ? (
+                <Image
+                  src={logo}
+                  alt="Logo Of Before After Story"
+                  className="h-16 w-auto"
+                />
+              ) : (
+                <Image
+                  src={logo}
+                  alt="Logo Of Before After Story"
+                  className="h-16 w-auto"
+                />
+              )}
+            </Link>
+          </div>
+
+          <Menu
+            onClick={onClick}
+            defaultSelectedKeys={[currentPathname]}
+            mode="inline"
+            className="sidebar-menu space-y-2.5 !border-none !bg-transparent"
+            items={navLinks}
+          />
+        </Drawer>
       </div>
 
-      <Menu
-        onClick={onClick}
-        defaultSelectedKeys={[currentPathname]}
-        mode="inline"
-        className="sidebar-menu space-y-2.5 !border-none !bg-transparent"
-        items={navLinks}
-      />
-    </Sider>
+      <div className="hidden md:block">
+        <Sider
+          width={320}
+          theme="light"
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          style={{
+            paddingInline: `${!collapsed ? "10px" : "4px"}`,
+            paddingBlock: "30px",
+            backgroundColor: "white",
+            maxHeight: "100vh",
+            overflow: "auto",
+          }}
+          className="scroll-hide"
+        >
+          <div className="mb-6 flex flex-col items-center justify-center gap-y-5">
+            <Link href={"/"}>
+              {collapsed ? (
+                <Image
+                  src={logo}
+                  alt="Logo Of Before After Story"
+                  className="h-16 w-auto"
+                />
+              ) : (
+                <Image
+                  src={logo}
+                  alt="Logo Of Before After Story"
+                  className="h-16 w-auto"
+                />
+              )}
+            </Link>
+          </div>
+
+          <Menu
+            onClick={onClick}
+            defaultSelectedKeys={[currentPathname]}
+            mode="inline"
+            className="sidebar-menu space-y-2.5 !border-none !bg-transparent"
+            items={navLinks}
+          />
+        </Sider>
+      </div>
+    </div>
   );
 };
 

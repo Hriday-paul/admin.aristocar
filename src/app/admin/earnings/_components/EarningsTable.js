@@ -99,7 +99,7 @@ export default function EarningsTable() {
           <div
             key={stat.key}
             className={clsx(
-              "flex-center-start gap-x-4 rounded-lg px-5 py-4 text-lg text-white",
+              "flex-center-start gap-x-4 rounded-lg px-2 lg:px-5 py-2 lg:py-4 text-lg text-white",
               stat.key === "today"
                 ? "bg-secondary"
                 : "bg-secondary",
@@ -107,8 +107,8 @@ export default function EarningsTable() {
           >
             <ArrowRightLeft size={24} />
             <p>
-              {stat.title}
-              <span className="pl-3 text-xl font-semibold">€{stat.amount}</span>
+              <span>{stat.title}</span>
+              <span className="pl-1 lg:pl-3 text-xl font-semibold">€{stat.amount}</span>
             </p>
           </div>
         ))}

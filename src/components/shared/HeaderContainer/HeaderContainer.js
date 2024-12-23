@@ -17,7 +17,7 @@ import { showImage } from "@/utils/showImage";
 import { notificationDummyData, profiledummyData } from "./dummyData";
 const { Header } = Layout;
 
-export default function HeaderContainer({ collapsed, setCollapsed }) {
+export default function HeaderContainer({ collapsed, setCollapsed, setOpenDrawer }) {
   const pathname = usePathname();
   const navbarTitle = pathname.split("/admin")[1];
   // const { data: notificationData, refetch } = useGetMyNotificationQuery({
@@ -82,13 +82,25 @@ export default function HeaderContainer({ collapsed, setCollapsed }) {
       }}
     >
       {/* Collapse Icon */}
-      <div className="flex items-center gap-x-2">
-        <Button
-          type="text"
-          icon={<AlignJustify strokeWidth={3} size={25} />}
-          onClick={() => setCollapsed(!collapsed)}
-        />
-        <h1 className="text-3xl font-semibold capitalize font-dmSans">
+      <div className="flex flex-row items-center gap-x-2">
+        <span className="md:hidden mt-3 p-2">
+          <Button
+            type="text"
+            icon={<AlignJustify strokeWidth={3} size={25} />}
+            onClick={() => setOpenDrawer(prev => !prev)}
+          />
+        </span>
+        <span className="hidden md:block mt-3">
+          <Button
+            type="text"
+            icon={<AlignJustify strokeWidth={3} size={25} />}
+            onClick={() => setCollapsed(!collapsed)}
+          />
+        </span>
+
+
+
+        <h1 className="text-lg md:text-xl lg:text-2xl font-semibold capitalize font-sans">
           {navbarTitle.length > 1
             ? navbarTitle.replaceAll("/", " ").replaceAll("-", " ")
             : "dashboard"}
@@ -121,7 +133,7 @@ export default function HeaderContainer({ collapsed, setCollapsed }) {
         >
           {user.image ? (
             <Image
-              src={showImage(user?.image)}
+              src={user?.image}
               alt="Admin avatar"
               width={52}
               height={52}

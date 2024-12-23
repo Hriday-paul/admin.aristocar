@@ -15,7 +15,7 @@ export const profiledummyData = {
         "gender": null,
         "dateOfBirth": null,
         "isGoogleLogin": false,
-        "image": "/uploads/profile/Lee-Min-ho-1731941875466-465921783-1734252429020-601796759.jpg",
+        "image": "https://cdn-icons-png.flaticon.com/512/2942/2942813.png",
         "role": "admin",
         "address": null,
         "isDeleted": false,
