@@ -13,6 +13,8 @@ import { Tag } from "antd";
 import EarningModal from "./EarningModal";
 import { useAllEarningsQuery } from "@/redux/api/income.api";
 import { dummyData } from "./dummyData";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import AddFreeAccess from "./AddFreeAccess";
 
 export default function EarningsTable() {
   const [showEarningModal, setShowEarningModal] = useState(false);
@@ -20,7 +22,7 @@ export default function EarningsTable() {
   // const { data: earningsRes, isFetching, isLoading } = useAllEarningsQuery();
 
   const earningsRes = dummyData
-  const isFetching = false,  isLoading = false
+  const isFetching = false, isLoading = false
 
   const earningsData = earningsRes?.data || [];
 
@@ -52,6 +54,11 @@ export default function EarningsTable() {
       render: (value) => (value == 1 ? "Basic" : value == 2 ? "Medium" : "N/A"),
     },
     {
+      title: "Expire",
+      // dataIndex: "quantity",
+      render: (value) => ("04 March 2025"),
+    },
+    {
       title: "TranId",
       dataIndex: "trnId",
     },
@@ -63,15 +70,25 @@ export default function EarningsTable() {
     {
       title: "Action",
       render: (value) => (
-        <Tooltip title="Show Details">
-          <button
-            onClick={() => {
-              setShowEarningModal(true), setModalData(value);
-            }}
-          >
-            <Eye color="#1B70A6" size={22} />
-          </button>
-        </Tooltip>
+        <div className="flex flex-row gap-x-5 items-center">
+          <Tooltip title="Show Details">
+            <button
+              onClick={() => {
+                setShowEarningModal(true), setModalData(value);
+              }}
+            >
+              <Eye color="#1B70A6" size={22} />
+            </button>
+          </Tooltip>
+          <Tooltip title="Add Free Access">
+            <AddFreeAccess >
+              <button>
+                <IoMdAddCircleOutline color="#1B70A6" size={22} />
+              </button>
+            </AddFreeAccess>
+          </Tooltip>
+        </div>
+
       ),
     },
   ];
