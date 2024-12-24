@@ -6,21 +6,20 @@ import { logout } from "@/redux/features/authSlice";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { CircleDollarSign } from "lucide-react";
-import { Shapes } from "lucide-react";
 import { ScrollText } from "lucide-react";
-import { Table } from "lucide-react";
 import { LayoutDashboard } from "lucide-react";
-import { ShoppingBasket } from "lucide-react";
 import { LogOut } from "lucide-react";
 import { SlidersVertical } from "lucide-react";
 import { Podcast } from "lucide-react";
 import { CircleUser } from "lucide-react";
-import { House } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { Drawer } from 'antd';
+import { FaCarOn } from "react-icons/fa6";
+import { TbBrandAsana } from "react-icons/tb";
+import { IoCarSport } from "react-icons/io5";
 
 const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
   const router = useRouter();
@@ -64,16 +63,34 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
         <Link href={"/admin/manage-subscription"}>Manage Subscriptions</Link>
       ),
     },
-    {
-      key: "Products",
-      icon: <ShoppingBasket size={21} strokeWidth={2} />,
-      label: <Link href={"/admin/cars"}>Cars</Link>,
-    },
+
     // {
     //   key: "orders",
     //   icon: <Table size={21} strokeWidth={2} />,
     //   label: <Link href={"/admin/orders"}>Orders</Link>,
     // },
+    {
+      key: "Manage Cars",
+      icon: <FaCarOn size={21} strokeWidth={2} />,
+      label: "Manage Cars",
+      children: [
+        {
+          key: "Cars",
+          icon: <IoCarSport size={21} strokeWidth={2} />,
+          label: <Link href={"/admin/cars"}>All Cars</Link>,
+        },
+        {
+          key: "Brands",
+          icon: <TbBrandAsana size={21} strokeWidth={2} />,
+          label: <Link href="/admin/brands">Brands</Link>,
+        },
+        {
+          key: "Models",
+          icon: <ScrollText size={21} strokeWidth={2} />,
+          label: <Link href="/admin/models">Models</Link>,
+        },
+      ],
+    },
     {
       key: "settings",
       icon: <SlidersVertical size={21} strokeWidth={2} />,
