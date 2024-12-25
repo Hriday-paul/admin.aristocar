@@ -17,7 +17,7 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
     const form = useForm({
         defaultValues: {
             brand_name: defaultData?.model_name,
-            brand : defaultData?.brand
+            brand: defaultData?.brand
         }
     });
 
@@ -79,13 +79,7 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
             >
                 <FormWrapper onSubmit={handelSubmit} {...form} defaultValues={{ model_name: defaultData?.model_name, brand: defaultData?.brand }}>
 
-                    <UInput
-                        type="text"
-                        name="model_name"
-                        label="Model Name"
-                        required={true}
-                        placeholder="Enter model name"
-                    />
+
                     <USelect
                         type="text"
                         name="brand"
@@ -99,6 +93,14 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
                                 label: item?.name
                             }
                         })}
+                    />
+
+                    <UInput
+                        type="text"
+                        name="model_name"
+                        label="Model Name"
+                        required={true}
+                        placeholder="Enter model name"
                     />
 
                     {isLoading ? (
