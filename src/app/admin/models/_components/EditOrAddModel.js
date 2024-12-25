@@ -2,6 +2,7 @@
 
 import FormWrapper from "@/components/Form/FormWrapper";
 import UInput from "@/components/Form/UInput";
+import USelect from "@/components/Form/USelect";
 import { useCreateProductMutation } from "@/redux/api/productsApi";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 import { Button, Modal } from "antd";
@@ -15,7 +16,8 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
 
     const form = useForm({
         defaultValues: {
-            brand_name: defaultData?.model_name
+            brand_name: defaultData?.model_name,
+            brand : defaultData?.brand
         }
     });
 
@@ -41,6 +43,25 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
         // }
     };
 
+    const dummyBrandData = [
+        {
+            id: 1,
+            name: "SUV"
+        },
+        {
+            id: 2,
+            name: "BMW"
+        },
+        {
+            id: 3,
+            name: "Audit"
+        },
+        {
+            id: 4,
+            name: "SUV"
+        },
+    ]
+
     return (
         <>
             <span onClick={() => setOpen(true)}>
@@ -56,7 +77,7 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
                 }}
                 title={isEdit ? "Edit Model Name" : "Add New Model"}
             >
-                <FormWrapper onSubmit={handelSubmit} {...form} defaultValues={{ model_name: defaultData?.model_name }}>
+                <FormWrapper onSubmit={handelSubmit} {...form} defaultValues={{ model_name: defaultData?.model_name, brand: defaultData?.brand }}>
 
                     <UInput
                         type="text"
@@ -64,6 +85,20 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
                         label="Model Name"
                         required={true}
                         placeholder="Enter model name"
+                    />
+                    <USelect
+                        type="text"
+                        name="brand"
+                        label="Choose Brand"
+                        required={true}
+                        placeholder="Choose a Brand"
+                        defaultValue={defaultData?.brand}
+                        options={dummyBrandData?.map(item => {
+                            return {
+                                value: item?.name,
+                                label: item?.name
+                            }
+                        })}
                     />
 
                     {isLoading ? (

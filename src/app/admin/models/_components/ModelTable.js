@@ -19,21 +19,27 @@ const ModelTable = () => {
     const dummyData = [
         {
             id: 1,
-            name: "A-class"
+            name: "A-class",
+            brand: "SUV"
         },
         {
             id: 2,
-            name: "C-class"
+            name: "C-class",
+            brand: "Audit"
         },
         {
             id: 3,
-            name: "CLA"
+            name: "CLA",
+            brand: "BMW"
         },
         {
             id: 4,
-            name: "EQE"
+            name: "EQE",
+            brand: "Audit"
         },
     ]
+
+
 
     const dltMstWanted = useCallback((id) => {
         Swal.fire({
@@ -71,12 +77,17 @@ const ModelTable = () => {
             render: (value) => (value ?? "N/A"),
         },
         {
+            title: "Brand Name",
+            dataIndex: "brand",
+            render: (value) => (value ?? "N/A"),
+        },
+        {
             title: "Action",
             render: (value) => (
 
                 <div className="flex flex-row gap-x-3 items-center">
                     <Tooltip title="Edit Model Name">
-                        <EditOrAddModel defaultData={{ model_name: value?.name }} isEdit={true}>
+                        <EditOrAddModel defaultData={{ model_name: value?.name, brand : value?.brand }} isEdit={true}>
                             <button
                                 onClick={() => {
                                     setShowEarningModal(true), setModalData(value);
