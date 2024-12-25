@@ -55,11 +55,7 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
         {
             id: 3,
             name: "Audit"
-        },
-        {
-            id: 4,
-            name: "SUV"
-        },
+        }
     ]
 
     return (
