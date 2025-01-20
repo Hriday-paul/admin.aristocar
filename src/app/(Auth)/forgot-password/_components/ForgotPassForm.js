@@ -17,21 +17,21 @@ export default function ForgotPassForm() {
   const router = useRouter();
 
   const onSubmit = async (data) => {
-    // try {
-    //   const res = await forgotPassword(data).unwrap();
+    try {
+      const res = await forgotPassword(data).unwrap();
 
-    //   if (res?.success) {
-    //     SuccessModal(res?.message);
+      if (res?.success) {
+        SuccessModal(res?.message);
 
-    //     // set token to session storage
-    //     setToSessionStorage("forgotPassToken", res.data?.token);
+        // set token to session storage
+        setToSessionStorage("forgotPassToken", res.data?.token);
 
-    //     // send to otp verify page
-    //     router.push("/otp-verification");
-    //   }
-    // } catch (error) {
-    //   ErrorModal(error?.data?.message);
-    // }
+        // send to otp verify page
+        router.push("/otp-verification");
+      }
+    } catch (error) {
+      ErrorModal(error?.data?.message);
+    }
   };
 
   return (

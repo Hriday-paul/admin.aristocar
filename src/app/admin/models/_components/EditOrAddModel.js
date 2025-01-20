@@ -3,60 +3,43 @@
 import FormWrapper from "@/components/Form/FormWrapper";
 import UInput from "@/components/Form/UInput";
 import USelect from "@/components/Form/USelect";
-import { useCreateProductMutation } from "@/redux/api/productsApi";
+import { useCreate_modelMutation, useGet_all_brandsQuery, useUpdate_modelMutation } from "@/redux/api/productsApi";
+import { addModelSchema } from "@/schema/authSchema";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Modal } from "antd";
 import { Loader } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 
 function EditOrAddModel({ children, defaultData, isEdit }) {
+    const { isLoading: brandLoading, data: branddata, isSuccess } = useGet_all_brandsQuery()
     const [open, setOpen] = useState(false)
-    const [createPr, { isLoading }] = useCreateProductMutation();
-
-    const form = useForm({
-        defaultValues: {
-            brand_name: defaultData?.model_name,
-            brand: defaultData?.brand
-        }
-    });
+    const [updateFn, { isLoading: updateLoading }] = useUpdate_modelMutation();
+    const [createFn, { isLoading: addLoading }] = useCreate_modelMutation();
 
     const handelSubmit = async (data) => {
-
-        // try {
-        //     const formData = new FormData();
-
-        //     formData.append("data", JSON.stringify(data));
-
-        //     const res = await createPr(formData).unwrap();
-
-        //     SuccessModal(res?.message);
-        //     if (res?.success) {
-        //         form.reset();
-        //         setOpen(false);
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        //     ErrorModal(error?.message || error?.data?.message);
-        // } finally {
-        //     toast.dismiss("category");
-        // }
-    };
-
-    const dummyBrandData = [
-        {
-            id: 1,
-            name: "SUV"
-        },
-        {
-            id: 2,
-            name: "BMW"
-        },
-        {
-            id: 3,
-            name: "Audit"
+        const req_body = {
+            brandId: data?.brand,
+            modelName: data?.model_name
         }
-    ]
+
+        try {
+            if (isEdit) {
+
+                const res = await updateFn({ id: defaultData?.id, data: req_body }).unwrap();
+
+                SuccessModal(res?.message);
+            } else {
+                const res = await createFn(req_body).unwrap();
+
+                SuccessModal(res?.message);
+            }
+        } catch (error) {
+            ErrorModal(error?.message || error?.data?.message || "Something went wrong, try again");
+        } finally {
+            setOpen(false)
+        }
+    };
 
     return (
         <>
@@ -73,22 +56,23 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
                 }}
                 title={isEdit ? "Edit Model Name" : "Add New Model"}
             >
-                <FormWrapper onSubmit={handelSubmit} {...form} defaultValues={{ model_name: defaultData?.model_name, brand: defaultData?.brand }}>
+                <FormWrapper onSubmit={handelSubmit} defaultValues={{ model_name: defaultData?.model_name, brand: defaultData?.brand }} resolver={zodResolver(addModelSchema)}>
 
 
                     <USelect
                         type="text"
                         name="brand"
                         label="Choose Brand"
+                        loading={brandLoading}
                         required={true}
                         placeholder="Choose a Brand"
                         defaultValue={defaultData?.brand}
-                        options={dummyBrandData?.map(item => {
+                        options={isSuccess ? branddata?.data?.data?.map(item => {
                             return {
-                                value: item?.name,
-                                label: item?.name
+                                value: item?._id,
+                                label: item?.brandName
                             }
-                        })}
+                        }) : []}
                     />
 
                     <UInput
@@ -99,21 +83,22 @@ function EditOrAddModel({ children, defaultData, isEdit }) {
                         placeholder="Enter model name"
                     />
 
-                    {isLoading ? (
-                        <Button disabled className="!h-10 w-full !font-semibold">
+                    {(updateLoading || addLoading) ? (
+                        <Button disabled className="!h-11 w-full !rounded-full !border-white !font-medium !transition-all !duration-300 !ease-in-out !bg-black !text-white">
                             <Loader className="mr-2 h-5 w-5 animate-spin" />
-                            Creating in...
+                            {updateLoading ? "Loading..." : "Creating..."}
                         </Button>
                     ) : (
                         <Button
                             htmlType="submit"
                             type="primary"
                             size="large"
-                            className="w-full !border-[#4ade80] !bg-[#4ade80] !transition-all !duration-300 !ease-in-out hover:!bg-transparent hover:!text-[#4ade80]"
+                            className="!h-11 w-full !rounded-full !border-white !font-medium !transition-all !duration-300 !ease-in-out !bg-black !text-white"
                         >
-                            Submit
+                            {isEdit ? "Update" : "Submit"}
                         </Button>
                     )}
+
                 </FormWrapper>
             </Modal>
         </>

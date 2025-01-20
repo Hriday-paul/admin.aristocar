@@ -14,19 +14,17 @@ import { socket } from "@/socket";
 import toast from "react-hot-toast";
 import { useGetMyNotificationQuery } from "@/redux/api/notificationApi";
 import { showImage } from "@/utils/showImage";
-import { notificationDummyData, profiledummyData } from "./dummyData";
 const { Header } = Layout;
 
-export default function HeaderContainer({ collapsed, setCollapsed, setOpenDrawer }) {
+export default function HeaderContainer({ collapsed, setCollapsed }) {
   const pathname = usePathname();
   const navbarTitle = pathname.split("/admin")[1];
-  // const { data: notificationData, refetch } = useGetMyNotificationQuery({
-  //   read: false,
-  // });
-  const notificationData = notificationDummyData, refetch = false
+  const { data: notificationData, refetch } = useGetMyNotificationQuery({
+    read: false,
+  });
 
   const router = useRouter();
-  const userId = useSelector((state) => state.auth?.user?.userId);
+  const userId = useSelector((state) => state.auth?.user?._id);
   const token = useSelector((state) => state.auth?.token);
 
   const notification = useSelector((state) => state.notification.notification);
@@ -61,11 +59,7 @@ export default function HeaderContainer({ collapsed, setCollapsed, setOpenDrawer
     router.push("/login");
   }
   // Get user info
-  // const { data: userRes, refetch: userRefetch } = useGetProfileQuery(null, {
-  //   skip: !userId,
-  // });
-
-  const userRes = profiledummyData
+  const { data: userRes } = useGetProfileQuery();
 
   const user = userRes?.data || {};
 
@@ -82,25 +76,13 @@ export default function HeaderContainer({ collapsed, setCollapsed, setOpenDrawer
       }}
     >
       {/* Collapse Icon */}
-      <div className="flex flex-row items-center gap-x-2">
-        <span className="md:hidden mt-3 p-2">
-          <Button
-            type="text"
-            icon={<AlignJustify strokeWidth={3} size={25} />}
-            onClick={() => setOpenDrawer(prev => !prev)}
-          />
-        </span>
-        <span className="hidden md:block mt-3">
-          <Button
-            type="text"
-            icon={<AlignJustify strokeWidth={3} size={25} />}
-            onClick={() => setCollapsed(!collapsed)}
-          />
-        </span>
-
-
-
-        <h1 className="text-lg md:text-xl lg:text-2xl font-semibold capitalize font-sans">
+      <div className="flex items-center gap-x-2">
+        <Button
+          type="text"
+          icon={<AlignJustify strokeWidth={3} size={25} />}
+          onClick={() => setCollapsed(!collapsed)}
+        />
+        <h1 className="text-xl font-semibold capitalize font-dmSans">
           {navbarTitle.length > 1
             ? navbarTitle.replaceAll("/", " ").replaceAll("-", " ")
             : "dashboard"}
@@ -113,7 +95,7 @@ export default function HeaderContainer({ collapsed, setCollapsed, setOpenDrawer
           <Search color="#1C1B1F" size={22} strokeWidth={2.5} />
         </button> */}
 
-        <Link href="/admin/notification" className="relative !leading-none">
+        {/* <Link href="/admin/notification" className="relative !leading-none">
           <Badge count={notificationData?.data?.length || 0} overflowCount={10}>
             <Bell
               className="rounded-full cursor-pointer text-orange"
@@ -122,9 +104,9 @@ export default function HeaderContainer({ collapsed, setCollapsed, setOpenDrawer
               size={22}
             />
           </Badge>
-          {/* Notification dot indicator */}
-          {/* <div className="bg-[#64B445] absolute -top-1.5 -right-1 size-3 rounded-full" /> */}
-        </Link>
+
+          <div className="bg-[#64B445] absolute -top-1.5 -right-1 size-3 rounded-full" />
+        </Link> */}
 
         {/* User */}
         <Link

@@ -31,7 +31,7 @@ export default function FormWrapper({
 
   const handleSubmit = (data) => {
     onSubmit(data);
-    methods.reset();
+    // methods.reset();
   };
 
   return (

@@ -3,26 +3,17 @@
 import { ConfigProvider, Table } from "antd";
 import clsx from "clsx";
 import { ArrowRightLeft } from "lucide-react";
-import userImage from "@/assets/images/user-avatar-lg.png";
-import Image from "next/image";
-import { Filter } from "lucide-react";
 import { Tooltip } from "antd";
 import { Eye } from "lucide-react";
 import { useState } from "react";
-import { Tag } from "antd";
 import EarningModal from "./EarningModal";
 import { useAllEarningsQuery } from "@/redux/api/income.api";
-import { dummyData } from "./dummyData";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import AddFreeAccess from "./AddFreeAccess";
+import moment from "moment";
 
 export default function EarningsTable() {
   const [showEarningModal, setShowEarningModal] = useState(false);
   const [modalData, setModalData] = useState(null);
-  // const { data: earningsRes, isFetching, isLoading } = useAllEarningsQuery();
-
-  const earningsRes = dummyData
-  const isFetching = false, isLoading = false
+  const { data: earningsRes, isFetching, isLoading } = useAllEarningsQuery();
 
   const earningsData = earningsRes?.data || [];
 
@@ -50,22 +41,22 @@ export default function EarningsTable() {
     // },
     {
       title: "package",
-      dataIndex: "quantity",
-      render: (value) => (value == 1 ? "Basic" : value == 2 ? "Medium" : "N/A"),
+      dataIndex: "package",
+      render: (value) => (value?.shortTitle || "N/A"),
     },
     {
       title: "Expire",
       // dataIndex: "quantity",
-      render: (value) => ("04 March 2025"),
+      render: (value) => moment(value?.subscription?.expiredAt).format('LL'),
     },
     {
       title: "TranId",
-      dataIndex: "trnId",
+      dataIndex: "tranId",
     },
 
     {
       title: "Amount",
-      dataIndex: "totalAmount",
+      dataIndex: "amount",
     },
     {
       title: "Action",
@@ -80,13 +71,6 @@ export default function EarningsTable() {
               <Eye color="#1B70A6" size={22} />
             </button>
           </Tooltip>
-          <Tooltip title="Add Free Access">
-            <AddFreeAccess >
-              <button>
-                <IoMdAddCircleOutline color="#1B70A6" size={22} />
-              </button>
-            </AddFreeAccess>
-          </Tooltip>
         </div>
 
       ),
@@ -98,13 +82,13 @@ export default function EarningsTable() {
     {
       key: "today",
       title: "Today's Earning",
-      amount: earningsData?.todayIncome,
+      amount: earningsData?.todayEarnings,
     },
 
     {
       key: "total",
       title: "Total Earnings",
-      amount: earningsData?.totalIncome,
+      amount: earningsData?.totalEarnings,
     },
   ];
 
@@ -132,14 +116,17 @@ export default function EarningsTable() {
       </section>
 
       <ConfigProvider
-        theme={{
-          components: {
-            Table: {
-              headerBg: "#0A0A0B",
-            }
+      theme={{
+        token: {
+          colorInfo: "#000000",
+        },
+        components: {
+          Table: {
+            headerBg: "#0A0A0B",
           }
-        }}
-      >
+        }
+      }}
+    >
 
         {/* Earning table */}
         <section className="my-10">
@@ -147,7 +134,7 @@ export default function EarningsTable() {
             loading={isLoading ?? isFetching}
             style={{ overflowX: "auto" }}
             columns={columns}
-            dataSource={earningsData?.allTransitions || []}
+            dataSource={earningsData?.allData || []}
             scroll={{ x: "100%" }}
             pagination
           ></Table>

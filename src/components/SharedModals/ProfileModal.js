@@ -34,7 +34,7 @@ export default function ProfileModal({
         ) : (
           <div className="flex items-center justify-center w-[100px] h-[100px] rounded-full bg-white font-500">
             <p className="text-2xl">
-              {modalData?.email?.slice(0, 2)?.toUpperCase()}
+              {modalData?.name?.slice(0, 2)?.toUpperCase()}
             </p>
           </div>
         )}
@@ -45,7 +45,7 @@ export default function ProfileModal({
       </div>
 
       <div className=" grid grid-cols-1 gap-7 px-12 py-8 md:grid-cols-2 ">
-        <div className="text-black">
+        {/* <div className="text-black">
           <h5 className=" font-bold">Name</h5>
           <p className="font-dmSans text-base">
             {" "}
@@ -70,8 +70,43 @@ export default function ProfileModal({
           <h5 className=" font-bold">Account Type</h5>
           <p className="font-dmSans">
             <Tag color="cyan" className="!text-sm !mt-1 !font-semibold">
-              {modalData?.role === "user" ? "user" : "delear"}
+              {modalData?.role === "user" ? "user" : modalData?.role === "dealer" ? "dealer" : "admin"}
             </Tag>
+          </p>
+        </div> */}
+        <div className="text-black">
+          <h5 className=" font-bold">Country</h5>
+          <p className="font-dmSans text-base">
+            {" "}
+            {modalData?.dealer_address?.country ? modalData?.dealer_address?.country : "N/A"}
+          </p>
+        </div>
+        <div className="text-black">
+          <h5 className=" font-bold">City</h5>
+          <p className="font-dmSans text-base">
+            {" "}
+            {modalData?.dealer_address?.city ? modalData?.dealer_address?.city : "N/A"}
+          </p>
+        </div>
+        <div className="text-black">
+          <h5 className=" font-bold">Post code</h5>
+          <p className="font-dmSans text-base">
+            {" "}
+            {modalData?.dealer_address?.post_code ? modalData?.dealer_address?.post_code : "N/A"}
+          </p>
+        </div>
+        <div className="text-black">
+          <h5 className=" font-bold">Street</h5>
+          <p className="font-dmSans text-base">
+            {" "}
+            {modalData?.dealer_address?.street ? modalData?.dealer_address?.street : "N/A"}
+          </p>
+        </div>
+        <div className="text-black">
+          <h5 className=" font-bold">Vat Id</h5>
+          <p className="font-dmSans text-base">
+            {" "}
+            {modalData?.dealer_address?.vat_id ? modalData?.dealer_address?.vat_id : "N/A"}
           </p>
         </div>
       </div>

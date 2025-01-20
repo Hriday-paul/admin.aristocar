@@ -14,22 +14,21 @@ import { dummyData } from "./dummyData";
 
 export default function DashboardContainer() {
   const [incomeYear, setIncomeYear] = useState(moment().format("yyyy"));
-  const [role, setRole] = useState("customer");
   const [JoinYear, setJoinYear] = useState(moment().format("yyyy"));
 
   const query = {};
-  if (incomeYear) query["year"] = incomeYear;
+  if (incomeYear) query["incomeYear"] = incomeYear;
+  if (JoinYear) query["JoinYear"] = JoinYear;
 
-  // const { data: dashboardRes } = useGetDashboardDataQuery(query);
-  const dashboardRes = dummyData
+  const { data: dashboardRes } = useGetDashboardDataQuery(query);
 
   const dashboardData = {
-    monthlyIncome: dashboardRes?.monthlyIncome || 0,
-    userDetails: dashboardRes?.userData || 0,
-    totalIncome: dashboardRes?.totalIncome || 0,
-    monthlyUsers: dashboardRes?.monthlyUsers || [{ month: "Jan", user: 10 }, { month: "Feb", user: 20 }, { month: "Mar", user: 50 }, { month: "Apr", user: 100 },{ month: "May", user: 40 }, { month: "Jun", user: 74 }, { month: "July", user: 90 }, { month: "Aug", user: 150 }, { month: "Sep", user: 95 }, { month: "Oct", user: 120 }, { month: "Nov", user: 32 }, { month: "Dec", user: 200 }],
-    transactions: dashboardRes?.transactions || 0,
-    totalUsers: dashboardRes?.totalUsers || 0
+    monthlyIncome: dashboardRes?.data?.monthlyIncome || [],
+    userDetails: dashboardRes?.data?.userDetails || 0,
+    totalIncome: dashboardRes?.data?.totalIncome || 0,
+    monthlyUsers: dashboardRes?.data?.monthlyUsers || [],
+    transactions: dashboardRes?.data?.transactions || 0,
+    totalUsers: dashboardRes?.data?.totalUsers || 0
   };
 
   const userStats = [
@@ -76,8 +75,6 @@ export default function DashboardContainer() {
       {/* Charts  */}
       <section className="grid grid-cols-1 gap-10 lg:grid-cols-2">
         <UsersChart
-          setRole={setRole}
-          role={role}
           setJoinYear={setJoinYear}
           monthlyUsers={dashboardData?.monthlyUsers}
         />

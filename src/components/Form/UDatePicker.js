@@ -9,6 +9,7 @@ const UDatePicker = ({
   placeholder,
   labelStyles = {},
   format,
+  minDate,
   showTime = false,
   picker,
   style,
@@ -34,6 +35,7 @@ const UDatePicker = ({
             id={name}
             picker={picker}
             size={size}
+            minDate={minDate}
             placeholder={placeholder}
             format={format}
             onChange={(date) => {

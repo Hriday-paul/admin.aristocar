@@ -1,37 +1,22 @@
+'use client'
 import React from 'react';
 import BillingCard from './BillCard';
 import AddEditModal from './AddEditModal';
+import { useGetPackagesQuery } from '@/redux/api/packageApi';
 
 const ManageSubscription = () => {
-    const billingCardData = [
-        {
-            id: 1,
-            title: "Basic",
-            details: "150 Euro a month for max. 10 listings",
-            price: 150,
-        },
-        {
-            id: 2,
-            title: "Medium",
-            details: "200 Euro a month for max. 50 listings",
-            price: 200,
-        },
-        {
-            id: 1,
-            title: "Pro",
-            details: "300 Euro a month for max. 80 listings",
-            price: 300,
-        }
-    ]
+    const { isLoading, data, isSuccess } = useGetPackagesQuery();
+    
     return (
         <div className='text-white'>
 
             {/* ---------billing cards--------------- */}
-            <div className="my-5 lg:my-8 w-fit mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 lg:flex">
+
+            <div className="my-5 lg:my-8 w-fit mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 lg:grid-cols-3">
                 {
-                    billingCardData?.map(card => {
+                    isLoading ? "loading..." : isSuccess ? data?.data?.data?.map(card => {
                         return <BillingCard key={card?.id} cardData={card} />
-                    })
+                    }) : <></>
                 }
             </div>
             {/* ---------add bill cards--------------- */}

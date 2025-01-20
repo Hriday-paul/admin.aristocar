@@ -12,13 +12,16 @@ export const tagTypes = {
   order: "Order",
   shop: "Shop",
   payment: "Payment",
-  content: "Content",
+  privacy_content: "privacy_content",
+  about_content: "about_content",
   refund: "Refund",
   notification: "notification",
   income: "income",
-  package:"package",
+  package: "package",
   category: "category",
   subcategory: "subcategory",
+  brands: "brands",
+  models: "models"
 };
 
 export const tagTypesList = [
@@ -35,11 +38,15 @@ export const tagTypesList = [
   tagTypes.order,
   tagTypes.shop,
   tagTypes.payment,
-  tagTypes.content,
+  tagTypes.about_content,
+  tagTypes.privacy_content,
   tagTypes.refund,
   tagTypes.notification,
   tagTypes.income,
   tagTypes.package,
   tagTypes.category,
   tagTypes.subcategory,
+  tagTypes.brands,
+  tagTypes.models,
+
 ];

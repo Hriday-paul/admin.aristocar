@@ -5,7 +5,7 @@ import logo from "../../../../public/favicon1.svg";
 import { logout } from "@/redux/features/authSlice";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { CircleDollarSign } from "lucide-react";
+import { CircleDollarSign, CirclePlus, ContactRound } from "lucide-react";
 import { ScrollText } from "lucide-react";
 import { LayoutDashboard } from "lucide-react";
 import { LogOut } from "lucide-react";
@@ -52,9 +52,14 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
       label: <Link href={"/admin/earnings"}>Earnings</Link>,
     },
     {
-      key: "account-details",
+      key: "User",
       icon: <CircleUser size={21} strokeWidth={2} />,
-      label: <Link href={"/admin/account-details"}>Account Details</Link>,
+      label: <Link href={"/admin/users"}>Users</Link>,
+    },
+    {
+      key: "dealers",
+      icon: <ContactRound size={21} strokeWidth={2} />,
+      label: <Link href={"/admin/dealers"}>Dealers</Link>,
     },
     {
       key: "manage-subscription",

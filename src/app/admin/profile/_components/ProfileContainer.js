@@ -18,34 +18,27 @@ import { dummyData } from "./dummyData";
 const { TabPane } = Tabs;
 
 export default function ProfileContainer() {
-  // const { data: profileRes, refetch } = useGetProfileQuery();
-  // const [updateProfileFn, { isLoading }] = useUpdateProfileMutation();
-  const profileRes = dummyData, isLoading = false
-  const ref = useRef(null);
+  const { data: profileRes, refetch, isLoading } = useGetProfileQuery();
+  const [updateProfileFn, { isLoading: updateLoading }] = useUpdateProfileMutation();
+
   const [profile, setProfile] = useState(null);
   const profileData = profileRes?.data || {};
-  const handleButtonClick = () => {
-    ref.current?.click();
-  };
+
   const handelToUpdateProfile = async (data) => {
-    // try {
-    //   const formData = new FormData();
-    //   if (profile) {
-    //     formData.append("image", profile);
-    //   }
-
-    //   formData.append("data", JSON.stringify(data));
-    //   const res = await updateProfileFn(formData).unwrap();
-    //   SuccessModal("Profile updated successfully");
-
-    //   if (res.success) {
-    //     refetch();
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    //   ErrorModal(err?.message || err?.data?.message);
-    // }
+    try {
+      const formData = new FormData();
+      if (profile) {
+        formData.append("image", profile);
+      }
+      formData.append("data", JSON.stringify(data));
+      await updateProfileFn(formData).unwrap();
+      SuccessModal("Profile updated successfully");
+    } catch (err) {
+      ErrorModal(err?.message || err?.data?.message);
+    }
   };
+
+  
 
   return (
     <ConfigProvider
@@ -62,7 +55,7 @@ export default function ProfileContainer() {
           <div className="relative w-max">
             <Image
               src={
-                (profile && URL?.createObjectURL(profile)) || showImage(profileData?.image)
+                (profile && URL?.createObjectURL(profile)) || profileData?.image
               }
               alt="Admin avatar"
               width={1200}
@@ -71,14 +64,13 @@ export default function ProfileContainer() {
             />
 
             {/* Edit button */}
-            <button
-              onClick={handleButtonClick}
+            <label htmlFor="photo"
               className="absolute p-2 bg-green-400 rounded-full flex-center bottom-2 right-2 aspect-square text-white/95"
             >
               <ImagePlus size={20} />
-            </button>
+            </label>
             <input
-              ref={ref}
+              id="photo"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
@@ -105,7 +97,7 @@ export default function ProfileContainer() {
               <EditProfileForm
                 handelToUpdateProfile={handelToUpdateProfile}
                 profileData={profileData}
-                isLoading={isLoading}
+                isLoading={updateLoading}
               />
             </TabPane>
 

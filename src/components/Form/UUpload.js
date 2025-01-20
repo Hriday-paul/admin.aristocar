@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Controller } from "react-hook-form";
 
 export default function UUpload({
-  type,
   name,
   requiredMessage="Please upload",
   setSelectedFile,

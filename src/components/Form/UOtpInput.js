@@ -1,6 +1,6 @@
 "use client";
 
-import { Form, Input } from "antd";
+import { ConfigProvider, Form, Input } from "antd";
 import { Controller } from "react-hook-form";
 
 const UOtpInput = ({
@@ -19,24 +19,36 @@ const UOtpInput = ({
   required,
 }) => {
   return (
-    <Controller
-      name={name}
-      render={({ field, fieldState: { error } }) => (
-        <Form.Item
-          label={
-            Object.keys(labelStyles)?.length > 0 ? (
-              <label style={labelStyles}>{label}</label>
-            ) : (
-              label
-            )
+    <ConfigProvider
+      theme={{
+        components: {
+          Input: {
+            activeBorderColor: '#882578'
           }
-          validateStatus={error ? "error" : ""}
-          help={error ? error.message : ""}
-        >
-          <Input.OTP size="large" {...field} />
-        </Form.Item>
-      )}
-    />
+        }
+      }
+
+      }
+    >
+      <Controller
+        name={name}
+        render={({ field, fieldState: { error } }) => (
+          <Form.Item
+            label={
+              Object.keys(labelStyles)?.length > 0 ? (
+                <label style={labelStyles}>{label}</label>
+              ) : (
+                label
+              )
+            }
+            validateStatus={error ? "error" : ""}
+            help={error ? error.message : ""}
+          >
+            <Input.OTP size="large" {...field} />
+          </Form.Item>
+        )}
+      />
+    </ConfigProvider>
   );
 };
 

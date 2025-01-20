@@ -2,8 +2,8 @@
 
 import FormWrapper from "@/components/Form/FormWrapper";
 import {
-  useGetContentsQuery,
-  useUpdateContentMutation,
+  useGetAboutContentsQuery,
+  useUpdateAboutContentMutation,
 } from "@/redux/api/contentApi";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 import { Button } from "antd";
@@ -19,8 +19,8 @@ const JoditEditor = dynamic(() => import("jodit-react"), {
 export default function TermsConditionsContainer() {
   const [content, setContent] = useState("");
   const editor = useRef(null);
-  const { data: data, isSuccess } = useGetContentsQuery();
-  const [updateFn, { isLoading }] = useUpdateContentMutation();
+  const { data: data, isSuccess } = useGetAboutContentsQuery();
+  const [updateFn, { isLoading }] = useUpdateAboutContentMutation();
   const termsAndConditions = data?.data?.data[0]?.termsAndConditions || "";
 
   const onSubmit = async () => {

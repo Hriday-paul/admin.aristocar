@@ -3,52 +3,59 @@
 import FormWrapper from "@/components/Form/FormWrapper";
 import UInput from "@/components/Form/UInput";
 import UTextArea from "@/components/Form/UTextArea";
-import UTextEditor from "@/components/Form/UTextEditor";
-import { useCreateProductMutation } from "@/redux/api/productsApi";
+import { useCreatePackagerMutation, useUpdatePackageMutation } from "@/redux/api/packageApi";
+import { addPackageSchema } from "@/schema/authSchema";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button, Modal } from "antd";
-import { CloudUpload } from "lucide-react";
-import { Trash2 } from "lucide-react";
 import { Loader } from "lucide-react";
-import Image from "next/image";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { useState } from "react";
 
-export default function CreateProductModal({ children, isEdit, data }) {
-    console.log(data)
+export default function CreateProductModal({ children, isEdit, data: prevData }) {
+    const [editFn, { isLoading: editLoading }] = useUpdatePackageMutation()
     const [open, setOpen] = useState(false)
-    const [createPr, { isLoading }] = useCreateProductMutation();
+    const [createPr, { isLoading: addLoading }] = useCreatePackagerMutation();
 
-    const form = useForm({
-        defaultValues: {
-            name: data?.title,
-            price: data?.price,
-            description: data?.details
-        }
-    });
 
     const handelSubmit = async (data) => {
 
-        // try {
-        //     const formData = new FormData();
+        const req_body = {
+            "title": data?.name,
+            shortTitle: data?.name,
+            "price": Number(data?.price),
+            shortDescription: data?.description,
+            "carCreateLimit": Number(data?.limit),
+            durationDay: Number(data?.duration)
+        }
 
-        //     formData.append("data", JSON.stringify(data));
+        try {
+            if (isEdit) {
 
-        //     const res = await createPr(formData).unwrap();
+                const res = await editFn({ id: prevData?.id, data: req_body }).unwrap();
 
-        //     SuccessModal(res?.message);
-        //     if (res?.success) {
-        //         form.reset();
-        //         setOpen(false);
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        //     ErrorModal(error?.message || error?.data?.message);
-        // } finally {
-        //     toast.dismiss("category");
-        // }
+                SuccessModal(res?.message);
+                if (res?.success) {
+                    // form.reset();
+                    setOpen(false);
+                }
+            } else {
+                const res = await createPr(req_body).unwrap();
+
+                SuccessModal(res?.message);
+                if (res?.success) {
+                    // form.reset();
+                    setOpen(false);
+                }
+            }
+
+
+        } catch (error) {
+            console.log(error);
+            ErrorModal(error?.message || error?.data?.message || "Something went wrong, try again");
+        } finally {
+            setOpen(false)
+        }
     };
 
     return (
@@ -66,11 +73,13 @@ export default function CreateProductModal({ children, isEdit, data }) {
                 }}
                 title={isEdit ? "Edit package" : "Create package"}
             >
-                <FormWrapper onSubmit={handelSubmit} {...form} defaultValues={{
-                    name: data?.title,
-                    price: data?.price,
-                    description: data?.details,
-                }}>
+                <FormWrapper onSubmit={handelSubmit} defaultValues={{
+                    name: prevData?.title,
+                    price: prevData?.price,
+                    description: prevData?.details,
+                    limit: prevData?.limit,
+                    duration: prevData?.duration
+                }} resolver={zodResolver(addPackageSchema)}>
 
                     <UInput
                         type="text"
@@ -78,7 +87,7 @@ export default function CreateProductModal({ children, isEdit, data }) {
                         label="Name"
                         required={true}
                         placeholder="Enter Package Title"
-                        defaultValue={data?.title}
+                        defaultValue={prevData?.title}
                     />
                     <UInput
                         type="number"
@@ -87,33 +96,41 @@ export default function CreateProductModal({ children, isEdit, data }) {
                         required={true}
                         placeholder="Enter Package Price"
                     />
-                    {/* <UTextEditor
-          label="Description"
-          placeholder="Enter Description"
-          name="description"
-          height={400}
-          // onChange={(data) => setDescription(data)}
-          onBlur={(data) => setDescription(data)}
-        /> */}
+                    <UInput
+                        type="number"
+                        name="limit"
+                        label="Listing Limit"
+                        required={true}
+                        placeholder="Enter Listing limit"
+                    />
+
+                    <UInput
+                        type="number"
+                        name="duration"
+                        label="Duration day"
+                        required={true}
+                        placeholder="eg: 30 days"
+                    />
+
                     <UTextArea
                         label="Description"
                         placeholder="Enter Description"
                         name="description"
                         required={true}
                     />
-                    {isLoading ? (
-                        <Button disabled className="!h-10 w-full !font-semibold">
+                    {(editLoading || addLoading) ? (
+                        <Button disabled className="!h-11 w-full !rounded-full !border-white !font-medium !transition-all !duration-300 !ease-in-out !bg-black !text-white">
                             <Loader className="mr-2 h-5 w-5 animate-spin" />
-                            Creating in...
+                            {editLoading ? "Loading..." : "Creating..."}
                         </Button>
                     ) : (
                         <Button
                             htmlType="submit"
                             type="primary"
                             size="large"
-                            className="w-full !border-[#4ade80] !bg-[#4ade80] !transition-all !duration-300 !ease-in-out hover:!bg-transparent hover:!text-[#4ade80]"
+                            className="!h-11 w-full !rounded-full !border-white !font-medium !transition-all !duration-300 !ease-in-out !bg-black !text-white"
                         >
-                            Submit
+                            {isEdit ? "Update" : "Submit"}
                         </Button>
                     )}
                 </FormWrapper>

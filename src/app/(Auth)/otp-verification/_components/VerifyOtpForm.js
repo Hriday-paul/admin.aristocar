@@ -2,13 +2,13 @@
 
 import FormWrapper from "@/components/Form/FormWrapper";
 import UOtpInput from "@/components/Form/UOtpInput";
-import { useVerifyOtpMutation } from "@/redux/api/authApi";
+import { useResendOtpMutation, useVerifyOtpMutation } from "@/redux/api/authApi";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
 } from "@/utils/sessionStorage";
-import { Button } from "antd";
+import { Button, Form } from "antd";
 import { ArrowLeft, Loader } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,8 @@ import React from "react";
 export default function VerifyOtpForm() {
   const router = useRouter();
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
-  // const [resendOtp, { isLoading: isResendOtpLoading }] = useResendOtpMutation();
+  const [resendOtp, { isLoading: isResendOtpLoading }] = useResendOtpMutation();
+
   const onSubmit = async (data) => {
     try {
       const res = await verifyOtp({ otp: data.otp }).unwrap();
@@ -54,7 +55,7 @@ export default function VerifyOtpForm() {
 
       <FormWrapper
         onSubmit={onSubmit}
-        // resolver={zodResolver(otpSchema)}
+      // resolver={zodResolver(otpSchema)}
       >
         <UOtpInput name="otp" />
         {isLoading ? (

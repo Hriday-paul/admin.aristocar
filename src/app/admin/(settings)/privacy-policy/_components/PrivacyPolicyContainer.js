@@ -1,20 +1,14 @@
 "use client";
 
 import FormWrapper from "@/components/Form/FormWrapper";
-import UTextEditor from "@/components/Form/UTextEditor";
-import {
-  useGetContentsQuery,
-  useUpdateContentMutation,
-} from "@/redux/api/contentApi";
 
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 import { Button } from "antd";
-// import JoditEditor from "jodit-react";
 import { Edit, Loader } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { dummyData } from "./dummyData";
+import { useGetPrivacyContentsQuery, useUpdatePrivacyContentMutation } from "@/redux/api/contentApi";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false,
@@ -23,24 +17,24 @@ const JoditEditor = dynamic(() => import("jodit-react"), {
 export default function PrivacyPolicyContainer() {
   const [content, setContent] = useState("");
   const editor = useRef(null);
-  // const { data: privacyPolicyRes, isSuccess } = useGetContentsQuery();
-  // const [updateFn, { isLoading }] = useUpdateContentMutation();
-  const privacyPolicyRes = dummyData, isSuccess = true, isLoading = false
-  const privacyPolicyData = privacyPolicyRes?.data?.data[0]?.privacyPolicy || "";
+
+  const { data: privacyPolicyRes, isLoading: getLoading, isSuccess } = useGetPrivacyContentsQuery();
+  const [updateFn, { isLoading }] = useUpdatePrivacyContentMutation();
 
   const onSubmit = async () => {
-    // try {
-    //   const res = await updateFn({
-    //     privacyPolicy: content,
-    //   }).unwrap();
-    //   if (res?.success) {
-    //     SuccessModal("Privacy policy is updated");
-    //   }
-    // } catch (error) {
-    //   ErrorModal("Error updating privacy policy");
-    // } finally {
-    //   toast.dismiss("content");
-    // }
+    const toastLoad = toast.loading('loading....')
+    try {
+      const res = await updateFn({
+        description: content,
+      }).unwrap();
+      if (res?.status == 'success') {
+        SuccessModal("Privacy policy is updated");
+      }
+    } catch (error) {
+      ErrorModal("Error updating privacy policy");
+    } finally {
+      toast.dismiss(toastLoad);
+    }
   };
 
   return (
@@ -49,10 +43,10 @@ export default function PrivacyPolicyContainer() {
         Privacy Policy
       </h3>
 
-      <FormWrapper>
+      {getLoading ? 'loading...' : isSuccess ? <FormWrapper>
         <JoditEditor
           ref={editor}
-          value={privacyPolicyData}
+          value={privacyPolicyRes?.data?.description}
           config={{
             //@ts-ignore
             uploader: { insertImageAsBase64URI: true },
@@ -83,7 +77,8 @@ export default function PrivacyPolicyContainer() {
             </Button>
           )}
         </div>
-      </FormWrapper>
+      </FormWrapper> : <></>}
+
     </section>
   );
 }

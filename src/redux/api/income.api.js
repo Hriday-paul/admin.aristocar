@@ -1,4 +1,4 @@
- 
+
 
 import { tagTypes } from "../tagtypes";
 import { baseApi } from "./baseApi";
@@ -21,7 +21,17 @@ const incomesApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.income],
     }),
+
+    getSubscriptionsBy_id: builder.query({
+      query: (id, query) => ({
+        url: `/subscriptions/user/${id}`,
+        method: "GET",
+        params: query,
+      }),
+      // providesTags: [tagTypes.income],
+    }),
+
   }),
 });
 
-export const { useAllEarningsQuery, useGetDashboardDataQuery } = incomesApi;
+export const { useAllEarningsQuery, useGetDashboardDataQuery, useGetSubscriptionsBy_idQuery } = incomesApi;

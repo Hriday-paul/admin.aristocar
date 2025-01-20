@@ -20,11 +20,11 @@ const UsersChart = ({ monthlyUsers, setJoinYear, setRole, role }) => {
         <h1 className="text-xl font-medium text-white">Users Overview</h1>
 
         <div className="space-x-3">
-          <select className="bg-secondary border border-gray-400 text-white p-1 focus:outline-none outline-none" defaultValue={"all"}>
+          {/* <select onChange={(e) => setRole(e.target.value)} className="bg-secondary border border-gray-400 text-white p-1 focus:outline-none outline-none" defaultValue={"all"}>
             <option value={'all'}>All</option>
             <option value={'user'}>User</option>
             <option value={'delear'}>Delear</option>
-          </select>
+          </select> */}
           <DatePicker
             onChange={(date, dateString) =>
               setJoinYear(moment(dateString).format("YYYY"))
@@ -55,7 +55,7 @@ const UsersChart = ({ monthlyUsers, setJoinYear, setRole, role }) => {
             axisLine={false}
             tick={{ fill: 'white' }}
           />
-          <YAxis axisLine={false} tickLine={false} tickMargin={20} tick={{ fill: 'white' }} dataKey="user" />
+          <YAxis axisLine={false} tickLine={false} tickMargin={20} tick={{ fill: 'white' }} dataKey="total" />
 
           <Tooltip
             formatter={(value) => [`User Joined: ${value}`]}
@@ -81,7 +81,7 @@ const UsersChart = ({ monthlyUsers, setJoinYear, setRole, role }) => {
             barSize={18}
             radius={5}
             background={false}
-            dataKey="user"
+            dataKey="total"
             fill="#FDFDFD"
           />
         </BarChart>

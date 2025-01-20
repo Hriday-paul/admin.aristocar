@@ -3,15 +3,6 @@ import { baseApi } from "./baseApi";
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    signUp: builder.mutation({
-      query: (data) => ({
-        url: "/users/create",
-        method: "POST",
-        body: data,
-      }),
-
-      invalidatesTags: [tagTypes.user, tagTypes.auth],
-    }),
 
     signIn: builder.mutation({
       query: (data) => ({
@@ -107,7 +98,7 @@ const authApi = baseApi.injectEndpoints({
     }),
     updateUser: builder.mutation({
       query: (data) => ({
-        url: `/users/${data?.id}`,
+        url: `/users/update/${data?.id}`,
         method: "PATCH",
         body: data?.data,
       }),

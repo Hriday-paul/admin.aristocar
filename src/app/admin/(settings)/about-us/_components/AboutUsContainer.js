@@ -2,8 +2,8 @@
 
 import FormWrapper from "@/components/Form/FormWrapper";
 import {
-  useGetContentsQuery,
-  useUpdateContentMutation,
+  useGetAboutContentsQuery,
+  useUpdateAboutContentMutation,
 } from "@/redux/api/contentApi";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 import { Button } from "antd";
@@ -11,33 +11,34 @@ import { Edit, Loader } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { dummyData } from "./dummyData";
+
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false,
 });
 
 export default function AboutUsContainer() {
+  const { data: data } = useGetAboutContentsQuery();
+  const [updateFn, { isLoading }] = useUpdateAboutContentMutation();
   const [content, setContent] = useState("");
   const editor = useRef(null);
-  // const { data: data, isSuccess } = useGetContentsQuery();
-  // const [updateFn, { isLoading }] = useUpdateContentMutation();
-  const isLoading = false, data = dummyData, isSuccess = true
-  const aboutUs = data?.data?.data[0]?.aboutUs || "";
 
   const onSubmit = async () => {
-    // try {
-    //   const res = await updateFn({
-    //     aboutUs: content,
-    //   }).unwrap();
-    //   if (res?.success) {
-    //     SuccessModal("AboutUs is updated");
-    //   }
-    // } catch (error) {
-    //   ErrorModal("Error updating AboutUs");
-    // } finally {
-    //   toast.dismiss("content");
-    // }
+    const tastload = toast.loading('loading....')
+    try {
+      const res = await updateFn({
+        description: content,
+      }).unwrap();
+      if (res?.status == "success") {
+        SuccessModal("AboutUs is updated");
+      }
+    } catch (error) {
+      ErrorModal("Error updating AboutUs");
+    } finally {
+      toast.dismiss(tastload);
+    }
   };
+
+
   return (
     <section>
       <h3 className="mb-6 text-2xl font-semibold text-[#4ade80]">About Us</h3>
@@ -45,7 +46,7 @@ export default function AboutUsContainer() {
       <FormWrapper>
         <JoditEditor
           ref={editor}
-          value={aboutUs}
+          value={data?.data?.description}
           config={{
             //@ts-ignore
             uploader: { insertImageAsBase64URI: true }, height: 400,

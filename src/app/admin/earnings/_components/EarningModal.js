@@ -37,7 +37,7 @@ export default function EarningModal({
           ) : (
             <div className="font-500 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white">
               <p className="text-2xl">
-                {modalData?.user?.email?.slice(0, 2)?.toUpperCase()}
+                {modalData?.user?.name?.slice(0, 2)?.toUpperCase()}
               </p>
             </div>
           )}
@@ -47,7 +47,7 @@ export default function EarningModal({
           </h4>
         </div>
 
-        <p className="text-xl font-semibold">€{modalData?.totalAmount}</p>
+        <p className="text-xl font-semibold">€{modalData?.amount}</p>
       </div>
 
       <section className="px-4 my-4 space-y-5 text-lg font-medium">
@@ -63,18 +63,17 @@ export default function EarningModal({
         <div className="flex-center-between">
           <span>Package :</span>
           <Tag className="!m-0 !text-sm" color="blue">
-            Basic
-            {/* {modalData?.product?.name ?? modalData?.product?.name} */}
+            {modalData?.package?.shortTitle ?? modalData?.package?.shortTitle}
           </Tag>
         </div>
 
         <div className="flex-center-between">
           <span>Transaction ID :</span>
-          <span>{modalData?.trnId ?? modalData?.trnId}</span>
+          <span>{modalData?.tranId ?? modalData?.tranId}</span>
         </div> 
         <div className="flex-center-between">
-          <span>Date :</span>
-          <span>{moment(modalData?.updatedAt).format("lll")}</span>
+          <span>Purchase Date :</span>
+          <span>{moment(modalData?.subscription?.createdAt).format("lll")}</span>
         </div>
       </section>
     </Modal>

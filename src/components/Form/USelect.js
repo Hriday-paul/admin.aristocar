@@ -13,6 +13,7 @@ const USelect = ({
   mode,
   filterOption,
   style,
+  loading = false,
   labelStyles = {},
 }) => {
   return (
@@ -38,6 +39,7 @@ const USelect = ({
             filterOption={filterOption}
             showSearch={showSearch}
             value={fieldValue || defaultValue}
+            loading={loading}
             size={size}
             options={options}
             onChange={onChange}

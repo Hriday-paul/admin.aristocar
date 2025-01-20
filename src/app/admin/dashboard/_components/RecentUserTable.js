@@ -54,16 +54,16 @@ const RecentUserTable = ({ userDetails }) => {
       title: "Email",
       dataIndex: "email",
     },
-    {
-      title: "Contact",
-      dataIndex: "phoneNumber",
-      render: (value, record) => (value ? value : "N/A"),
-    },
-    {
-      title: "Contact",
-      dataIndex: "phoneNumber",
-      render: (value, record) => (value ? value : "N/A"),
-    },
+    // {
+    //   title: "Contact",
+    //   dataIndex: "phoneNumber",
+    //   render: (value, record) => (value ? value : "N/A"),
+    // },
+    // {
+    //   title: "Contact",
+    //   dataIndex: "phoneNumber",
+    //   render: (value, record) => (value ? value : "N/A"),
+    // },
     {
       title: "Join Date",
       dataIndex: "createdAt",
@@ -73,10 +73,29 @@ const RecentUserTable = ({ userDetails }) => {
       title: "Account Type",
       dataIndex: "role",
 
-      render: (value) => {
+      filters: [
+        {
+          text: "User",
+          value: "user",
+        },
+        {
+          text: "Dealer",
+          value: "dealer",
+        }
+      ],
+      filterIcon: () => (
+        <Filter
+          size={18}
+          color="#fff"
+          className="flex items-start justify-start"
+        />
+      ),
+      onFilter: (value, record) => value == 'pending' ? (!record?.isApproved && record.role == 'dealer') : record.role == value,
+      render: (value, record) => {
         return (
-          <Tag color="default" className="!text-sm">
-            {value === "user" ? "user" : "delear"}
+          <Tag color="default" className="!text-sm flex !flex-row gap-1 items-center">
+            {value === "user" ? "user" : value === "dealer" ? "dealer" : "admin"}
+            {/* {(value == 'dealer') ? !record?.isApproved ? <LoaderCircle className="animate-spin h-2.5 inline-block" /> : <Check className="text-green-500 h-3 inline-block" /> : <></>} */}
           </Tag>
         );
       },
@@ -86,6 +105,9 @@ const RecentUserTable = ({ userDetails }) => {
   return (
     <ConfigProvider
       theme={{
+        token: {
+          colorInfo: "#000000",
+        },
         components: {
           Table: {
             headerBg: "#0A0A0B",
@@ -97,11 +119,6 @@ const RecentUserTable = ({ userDetails }) => {
         <h4 className="text-2xl font-semibold text-white">
           Recently Joined Users
         </h4>
-        <select className="bg-secondary border border-gray-400 text-white p-1 focus:outline-none outline-none rounded-sm" defaultValue={"all"}>
-          <option value={'all'}>All</option>
-          <option value={'user'}>User</option>
-          <option value={'delear'}>Delear</option>
-        </select>
       </div>
 
 
