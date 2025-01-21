@@ -21,6 +21,7 @@ import { FaEye } from "react-icons/fa6";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Link from "next/link";
 import AddFreeAccess from "./AddFreeAccess";
+import AddApproval from "./AddApproval";
 
 export default function AccDetailsTable() {
   const [searchText, setSearchText] = useState("");
@@ -262,16 +263,13 @@ export default function AccDetailsTable() {
                 value?.role == 'dealer' && <li className={`p-0.5 pl-2 hover:bg-slate-50 dark:hover:bg-primary duration-200 rounded cursor-pointer`}>
 
                   {!value?.isApproved ? (
-                    <CustomConfirm
-                      title="Approve dealer"
-                      description="Are you sure approve this dealer for listing?"
-                      onConfirm={() => updateUser(value?._id, { isApproved: true }, "Dealer approve successfully")}
-                    >
+                    <AddApproval userId={value?._id}>
                       <button className='flex items-center gap-x-1'>
                         <SquareCheckBig className="text-green-600" size={16} />
                         Approve dealer
                       </button>
-                    </CustomConfirm>
+                    </AddApproval>
+
                   ) : (
                     <CustomConfirm
                       title="Remove approve dealer"
