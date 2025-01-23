@@ -3,10 +3,12 @@ import React from 'react';
 import BillingCard from './BillCard';
 import AddEditModal from './AddEditModal';
 import { useGetPackagesQuery } from '@/redux/api/packageApi';
+import { ImSpinner8 } from "react-icons/im"
+
 
 const ManageSubscription = () => {
     const { isLoading, data, isSuccess } = useGetPackagesQuery();
-    
+
     return (
         <div className='text-white'>
 
@@ -14,7 +16,9 @@ const ManageSubscription = () => {
 
             <div className="my-5 lg:my-8 w-fit mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 lg:grid-cols-3">
                 {
-                    isLoading ? "loading..." : isSuccess ? data?.data?.data?.map(card => {
+                    isLoading ? <div className="min-h-80 flex justify-center items-center">
+                        <ImSpinner8 className="text-4xl text-white animate-spin" />
+                    </div> : isSuccess ? data?.data?.data?.map(card => {
                         return <BillingCard key={card?.id} cardData={card} />
                     }) : <></>
                 }

@@ -65,7 +65,7 @@ const ModelTable = () => {
         },
         {
             title: "Brand Name",
-            dataIndex: "brand",
+            dataIndex: "brandId",
             render: (value) => (value?.brandName ?? "N/A"),
         },
         {
@@ -111,7 +111,6 @@ const ModelTable = () => {
                     }
                 }}
             >
-
 
                 <div className="flex justify-between items-center gap-x-5 mb-3">
                     <EditOrAddModel isEdit={false}>

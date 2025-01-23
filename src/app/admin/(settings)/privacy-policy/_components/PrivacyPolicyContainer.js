@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useGetPrivacyContentsQuery, useUpdatePrivacyContentMutation } from "@/redux/api/contentApi";
+import { ImSpinner8 } from "react-icons/im";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false,
@@ -43,7 +44,9 @@ export default function PrivacyPolicyContainer() {
         Privacy Policy
       </h3>
 
-      {getLoading ? 'loading...' : isSuccess ? <FormWrapper>
+      {getLoading ? <div className="min-h-80 flex justify-center items-center">
+        <ImSpinner8 className="text-4xl text-white animate-spin" />
+      </div> : isSuccess ? <FormWrapper>
         <JoditEditor
           ref={editor}
           value={privacyPolicyRes?.data?.description}

@@ -5,7 +5,7 @@ const contentApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getPrivacyContents: builder.query({
       query: () => ({
-        url: `/privacy/678e1a1cbb7cae0b77e14229`,
+        url: `/privacy/67922a44f9320702236c0d82`,
         method: "GET"
       }),
       providesTags: [tagTypes.privacy_content],
@@ -13,7 +13,7 @@ const contentApi = baseApi.injectEndpoints({
 
     updatePrivacyContent: builder.mutation({
       query: (data) => ({
-        url: `/privacy/update/678e1a1cbb7cae0b77e14229`,
+        url: `/privacy/update/67922a44f9320702236c0d82`,
         method: "PATCH",
         body: data,
       }),
@@ -23,7 +23,7 @@ const contentApi = baseApi.injectEndpoints({
 
     getAboutContents: builder.query({
       query: () => ({
-        url: `/about/678e1c02bb7cae0b77e1cd1f`,
+        url: `/about/67922ade5cdd08a4d3670df9`,
         method: "GET"
       }),
       providesTags: [tagTypes.about_content],
@@ -31,7 +31,7 @@ const contentApi = baseApi.injectEndpoints({
 
     updateAboutContent: builder.mutation({
       query: (data) => ({
-        url: `/about/update/678e1c02bb7cae0b77e1cd1f`,
+        url: `/about/update/67922ade5cdd08a4d3670df9`,
         method: "PATCH",
         body: data,
       }),
