@@ -5,14 +5,12 @@ import { logout, setUser } from "../features/authSlice";
 import { getBackendBaseUrl } from "@/config";
 
 const prepareAuthHeaders = (headers, state) => {
+  
   const otpToken = getFromSessionStorage("signUpToken");
   const forgotPassToken = getFromSessionStorage("forgotPassToken");
-  const sellerAccessToken = getFromSessionStorage("seller-access-token");
-  const token = state?.auth?.token;
+  const token = getFromSessionStorage('token');
 
-  if (sellerAccessToken) {
-    headers.set("authorization", `Bearer ${sellerAccessToken}`);
-  } else if (token) {
+  if (token) {
     headers.set("authorization", `Bearer ${token}`);
   }
 

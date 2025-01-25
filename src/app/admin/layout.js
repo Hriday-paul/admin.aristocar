@@ -33,32 +33,6 @@ export default function AdminLayout({ children }) {
     }
   }, [screenSizeLessThan1300, sidebarCollapsed]);
 
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
-  const navigate = useRouter();
-
-  // useEffect(() => {
-  //   if (user?.role && pathname === "/") {
-  //     navigate(`/${user?.role}/dashboard`);
-  //   }
-  // }, [user?.role, pathname]);
-
-  useEffect(() => {
-    socket.auth = { token };
-    socket.connect();
-    const handleNotificationEvent = (data) => {
-      dispatch(setNotification(data));
-    };
-
-    socket.on("notification::" + user?.userId, handleNotificationEvent);
-
-    return () => {
-      // Clean up the event listener when the component is unmounted
-      socket.off(user?.userId, handleNotificationEvent);
-      socket.disconnect();
-    };
-  }, [user, dispatch, token]);
 
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>

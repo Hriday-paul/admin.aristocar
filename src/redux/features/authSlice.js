@@ -27,6 +27,7 @@ const authSlice = createSlice({
       // Remove token for cookies
       Cookies.remove("jus-buy-access-token", { path: "/login" });
       removeFromSessionStorage("seller-access-token");
+      removeFromSessionStorage("token");
 
       state.user = null;
       state.token = null;

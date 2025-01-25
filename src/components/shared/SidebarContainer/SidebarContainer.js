@@ -29,6 +29,7 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
   const onClick = (e) => {
     if (e.key === "logout") {
       dispatch(logout());
+      
       router.push("/");
 
       Success_model({ title: "Logout successful" });

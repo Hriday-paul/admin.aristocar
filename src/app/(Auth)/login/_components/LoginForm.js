@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/features/authSlice";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-// import { setToSessionStorage } from "@/utils/sessionStorage";
+import { setToSessionStorage } from "@/utils/sessionStorage";
 
 export default function LoginForm() {
   const [signIn, { isLoading }] = useSignInMutation();
@@ -38,6 +38,7 @@ export default function LoginForm() {
             token: res?.data?.accessToken,
           }),
         );
+        setToSessionStorage('token', res?.data?.accessToken)
         // send user back or home
         router.push("/admin/dashboard");
       }

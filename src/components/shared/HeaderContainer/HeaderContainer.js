@@ -25,35 +25,6 @@ export default function HeaderContainer({ collapsed, setCollapsed }) {
 
   const router = useRouter();
   const userId = useSelector((state) => state.auth?.user?._id);
-  const token = useSelector((state) => state.auth?.token);
-
-  const notification = useSelector((state) => state.notification.notification);
-
-  useEffect(() => {
-    if (notification?.message) {
-      toast.info(notification?.message);
-    }
-  }, [notification]);
-
-  //socket \
-  useEffect(() => {
-    socket.auth = { token };
-    socket.connect();
-    const handleNotificationEvent = (data) => {
-      if (data) {
-        refetch();
-        data = null;
-      }
-    };
-
-    socket.on("notification::" + userId, handleNotificationEvent);
-
-    return () => {
-      // Clean up the event listener when the component is unmounted
-      socket.off(userId, handleNotificationEvent);
-      socket.disconnect();
-    };
-  }, [userId, refetch, token]);
 
   if (!userId) {
     router.push("/login");
