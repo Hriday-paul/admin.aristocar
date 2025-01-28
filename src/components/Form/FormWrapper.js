@@ -22,12 +22,12 @@ export default function FormWrapper({
   // set default value-------------------------
   const methods = useForm(formConfig);
 
-  useEffect(() => {
-    if (defaultValues) {
-      // Set default values after form is mounted
-      methods.reset(defaultValues);
-    }
-  }, [defaultValues, methods]);
+  // useEffect(() => {
+  //   if (defaultValues) {
+  //     // Set default values after form is mounted
+  //     methods.reset(defaultValues);
+  //   }
+  // }, [defaultValues, methods]);
 
   const handleSubmit = (data) => {
     onSubmit(data);
