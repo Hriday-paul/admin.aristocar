@@ -31,6 +31,8 @@ const EditOrAddBrand = ({ children, defaultData, isEdit }) => {
     };
 
     const handelSubmit = async (data) => {
+        console.log(data)
+        
         const req_body = {
             brandName: data?.brand_name,
             isHome: data?.isHome
@@ -53,7 +55,7 @@ const EditOrAddBrand = ({ children, defaultData, isEdit }) => {
         if (data?.isHome && image?.upload && !isEdit) {
             form.append('image', image?.upload)
         }
-        if (data?.isHome && isEdit && !defaultData?.image) {
+        if (data?.isHome && isEdit) {
             form.append('image', image?.upload)
         }
 
