@@ -37,7 +37,24 @@ const contentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.about_content],
     }),
+
+    getTermsContents: builder.query({
+      query: () => ({
+        url: `/terms/679729c380a0a03cc7e991ce`,
+        method: "GET"
+      }),
+      providesTags: [tagTypes.about_content],
+    }),
+
+    updateTermsContent: builder.mutation({
+      query: (data) => ({
+        url: `/terms/update/679729c380a0a03cc7e991ce`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: [tagTypes.about_content],
+    }),
   }),
 });
 
-export const { useGetPrivacyContentsQuery, useUpdatePrivacyContentMutation, useGetAboutContentsQuery, useUpdateAboutContentMutation } = contentApi;
+export const { useGetPrivacyContentsQuery, useUpdatePrivacyContentMutation, useGetAboutContentsQuery, useUpdateAboutContentMutation, useGetTermsContentsQuery, useUpdateTermsContentMutation } = contentApi;

@@ -16,8 +16,6 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const AddMostWanted = ({ children, id, isEdit = false, defaultData }) => {
-  console.log(defaultData)
-
   const [open, setOpen] = useState(false)
   const [updateFn, { isLoading: updateLoading }] = useUpdate_carMutation();
   const [image, setImage] = useState('');

@@ -107,3 +107,19 @@ body {
 .custom-placeholder-white input::-webkit-input-placeholder {
   color: #d3d3d3 !important;
 }
+
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item-selected{
+  @apply !bg-white
+}
+
+.anticon{
+  @apply !text-white
+}
+
+.ant-pagination .ant-pagination-item-active a{
+  @apply !bg-black !text-white
+}
+
+.ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover{
+  @apply !bg-gray-200
+}

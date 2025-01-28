@@ -5,7 +5,9 @@ import moment from 'moment';
 import React from 'react';
 
 const SubscriptionHistoryTable = ({ id }) => {
-    const { isLoading, isFetching, data, isSuccess } = useGetSubscriptionsBy_idQuery(id)
+    const query = { limit: 999999999999999 };
+
+    const { isLoading, isFetching, data, isSuccess } = useGetSubscriptionsBy_idQuery({ id: id, query: query })
 
     const columns = [
         {
@@ -15,12 +17,16 @@ const SubscriptionHistoryTable = ({ id }) => {
         },
         {
             title: "package",
-            dataIndex: "package",
-            render: (value) => (value?.shortTitle || "N/A"),
+            dataIndex: "subscription",
+            render: (value) => (value?.package?.title || "N/A"),
         },
         {
             title: "Amount",
             dataIndex: "amount",
+        },
+        {
+            title: "Vat Amount",
+            dataIndex: "vatAmount",
         },
         {
             title: "Created",
@@ -28,17 +34,17 @@ const SubscriptionHistoryTable = ({ id }) => {
         },
         {
             title: "Expire",
-            // dataIndex: "quantity",
+            dataIndex: "subscription",
             render: (value) => moment(value?.expiredAt).format('LL'),
         },
         {
             title: "TranId",
-            dataIndex: "trnId",
+            dataIndex: "tranId",
         },
         {
             title: "Car Add limit",
-            dataIndex: "package",
-            render: (value) => value?.carCreateLimit,
+            dataIndex: "subscription",
+            render: (value) => (value?.package?.carCreateLimit || "N/A"),
         },
     ];
 
@@ -46,7 +52,7 @@ const SubscriptionHistoryTable = ({ id }) => {
         <div>
 
             {
-                (isSuccess && data?.data?.length > 0) && <h4 className='text-white text-lg'>All subscriptions by -- {data?.data[0]?.user?.name}</h4>
+                (isSuccess && data?.data?.data?.length > 0) && <h4 className='text-white text-lg'>All Payments by -- {data?.data?.data[0]?.user?.name}</h4>
             }
 
             <ConfigProvider
@@ -68,7 +74,7 @@ const SubscriptionHistoryTable = ({ id }) => {
                         loading={isLoading}
                         style={{ overflowX: "auto" }}
                         columns={columns}
-                        dataSource={data?.data || []}
+                        dataSource={data?.data?.data || []}
                         rowKey={(record) => record._id}
                         scroll={{ x: "100%" }}
                         pagination

@@ -12,7 +12,9 @@ import { Loader } from "lucide-react";
 import { useState } from "react";
 
 function EditOrAddModel({ children, defaultData, isEdit }) {
-    const { isLoading: brandLoading, data: branddata, isSuccess } = useGet_all_brandsQuery()
+    const query = {};
+    query["limit"] = 999999999999999;
+    const { isLoading: brandLoading, data: branddata, isSuccess } = useGet_all_brandsQuery(query)
     const [open, setOpen] = useState(false)
     const [updateFn, { isLoading: updateLoading }] = useUpdate_modelMutation();
     const [createFn, { isLoading: addLoading }] = useCreate_modelMutation();

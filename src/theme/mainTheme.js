@@ -1,7 +1,7 @@
 export const mainTheme = {
   token: {
-    colorPrimary: "#b8d3e3",
-    colorInfo: "#b8d3e3",
+    colorPrimary: "#000000",
+    colorInfo: "#000000",
   },
 
   components: {

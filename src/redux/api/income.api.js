@@ -23,10 +23,10 @@ const incomesApi = baseApi.injectEndpoints({
     }),
 
     getSubscriptionsBy_id: builder.query({
-      query: (id, query) => ({
-        url: `/subscriptions/user/${id}`,
+      query: ({id , query}) => ({
+        url: `/payments/paymentbyuserId/${id}?limit=${query?.limit || 20}`,
         method: "GET",
-        params: query,
+        // params: query,
       }),
       // providesTags: [tagTypes.income],
     }),

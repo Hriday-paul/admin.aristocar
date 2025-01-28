@@ -62,6 +62,7 @@ export const addBrandSchema = z.object({
   brand_name: z
     .string({ required_error: "brand name is required" })
     .min(1, { message: "brand name is required" }),
+  isHome: z.boolean().optional(),
 });
 
 export const addModelSchema = z.object({

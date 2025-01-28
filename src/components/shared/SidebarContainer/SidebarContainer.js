@@ -29,7 +29,7 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
   const onClick = (e) => {
     if (e.key === "logout") {
       dispatch(logout());
-      
+
       router.push("/");
 
       Success_model({ title: "Logout successful" });
@@ -107,11 +107,11 @@ const SidebarContainer = ({ collapsed, openDrawer, setOpenDrawer }) => {
           icon: <ScrollText size={21} strokeWidth={2} />,
           label: <Link href="/admin/privacy-policy">Privacy Policy</Link>,
         },
-        // {
-        //   key: "terms-conditions",
-        //   icon: <ScrollText size={21} strokeWidth={2} />,
-        //   label: <Link href="/admin/terms-conditions">Terms & Conditions</Link>,
-        // },
+        {
+          key: "terms-conditions",
+          icon: <ScrollText size={21} strokeWidth={2} />,
+          label: <Link href="/admin/terms">Terms & Conditions</Link>,
+        },
         {
           key: "about-us",
           icon: <ScrollText size={21} strokeWidth={2} />,

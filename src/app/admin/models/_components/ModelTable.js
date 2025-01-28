@@ -13,6 +13,7 @@ const ModelTable = () => {
     const [searchText, setSearchText] = useState("");
     const query = {};
     query["searchTerm"] = searchText;
+    query["limit"] = 99999999999999;
     const { isLoading, data, isFetching } = useGet_all_modelQuery(query);
     const [deleteFn] = useDelete_modelMutation();
 

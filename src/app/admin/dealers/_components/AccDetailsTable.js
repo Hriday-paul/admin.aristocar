@@ -304,7 +304,7 @@ export default function AccDetailsTable() {
 
                   <Link href={`/admin/dealers/subscriptions/${value?._id}`} className='flex items-center gap-x-1'>
                     <Scroll color="#000000" size={16} />
-                    Subscription hist.
+                    Payment hist.
                   </Link>
                 </li>
               }

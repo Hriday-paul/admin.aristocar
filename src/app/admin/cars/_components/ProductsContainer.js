@@ -20,6 +20,7 @@ export default function ProductsContainer() {
   const [searchText, setSearchText] = useState("");
   const query = {};
   query["searchTerm"] = searchText;
+  query["limit"] = 20;
   query["page"] = page;
   const { data: carData, isFetching, isLoading } = useGet_all_carsQuery(query);
   const [updateFn] = useUpdate_carMutation();
