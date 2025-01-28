@@ -125,7 +125,7 @@ const EditOrAddBrand = ({ children, defaultData, isEdit }) => {
                             <div className="flex flex-col items-center justify-center">
                                 {" "}
                                 <CloudUpload size={32} color="gray" />
-                                <p className="font-semibold text-gray-500">Upload Logo</p>
+                                <p className="font-semibold text-gray-500">Upload Logo max (140 X 140) for better ui</p>
                             </div>
                         </div>
                         <input

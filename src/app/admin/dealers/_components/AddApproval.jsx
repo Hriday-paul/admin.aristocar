@@ -55,10 +55,10 @@ function AddApproval({ children, userId }) {
                         label="Choose Invoice type "
                         required={true}
                         placeholder="Choose Invoice type"
-                        options={["Romanian", "Valid vat", "Invalid vat"].map(item => {
+                        options={[{ label: "Romanian", vlaue: "Romanian VAT" }, { label: "EU with a valid VAT number", value: "Valid vat" }, { label: "Non-EU with a valid VAT number", value: "Invalid vat" }].map(item => {
                             return {
-                                value: item,
-                                label: item
+                                value: item?.value,
+                                label: item?.label
                             }
                         })}
                     />
