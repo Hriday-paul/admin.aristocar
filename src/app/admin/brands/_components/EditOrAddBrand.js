@@ -32,7 +32,7 @@ const EditOrAddBrand = ({ children, defaultData, isEdit }) => {
 
     const handelSubmit = async (data) => {
         console.log(data)
-        
+
         const req_body = {
             brandName: data?.brand_name,
             isHome: data?.isHome
@@ -59,31 +59,31 @@ const EditOrAddBrand = ({ children, defaultData, isEdit }) => {
             form.append('image', image?.upload)
         }
 
-        try {
-            if (isEdit) {
+        // try {
+        //     if (isEdit) {
 
-                const res = await updateFn({ id: defaultData?.id, data: form }).unwrap();
+        //         const res = await updateFn({ id: defaultData?.id, data: form }).unwrap();
 
-                SuccessModal(res?.message);
-                if (res?.success) {
-                    setOpen(false);
-                }
-            } else {
+        //         SuccessModal(res?.message);
+        //         if (res?.success) {
+        //             setOpen(false);
+        //         }
+        //     } else {
 
 
-                const res = await createFn(form).unwrap();
+        //         const res = await createFn(form).unwrap();
 
-                SuccessModal(res?.message);
-                if (res?.success) {
-                    setOpen(false);
-                }
-            }
-        } catch (error) {
-            console.log(error);
-            ErrorModal(error?.message || error?.data?.message || "Something went wrong, try again");
-        } finally {
-            setOpen(false)
-        }
+        //         SuccessModal(res?.message);
+        //         if (res?.success) {
+        //             setOpen(false);
+        //         }
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        //     ErrorModal(error?.message || error?.data?.message || "Something went wrong, try again");
+        // } finally {
+        //     setOpen(false)
+        // }
     };
 
     return (
@@ -101,7 +101,7 @@ const EditOrAddBrand = ({ children, defaultData, isEdit }) => {
                 }}
                 title={isEdit ? "Edit Brand Name" : "Add New Brand"}
             >
-                <FormWrapper onSubmit={handelSubmit} defaultValues={{ brand_name: defaultData?.brand_name, isHome: defaultData?.isHome, image: image }} resolver={zodResolver(addBrandSchema)}>
+                <FormWrapper onSubmit={handelSubmit} defaultValues={{ brand_name: defaultData?.brand_name, isHome: defaultData?.isHome || false, image: image }} resolver={zodResolver(addBrandSchema)}>
 
                     <UInput
                         type="text"
@@ -137,7 +137,7 @@ const EditOrAddBrand = ({ children, defaultData, isEdit }) => {
                             style={{ display: "none" }}
                             accept="image/*"
                             onChange={(e) => setImage(() => {
-                                return {upload : e?.target?.files[0], default : null}
+                                return { upload: e?.target?.files[0], default: null }
                             })}
                         />
 
