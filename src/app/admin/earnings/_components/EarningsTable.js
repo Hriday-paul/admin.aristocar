@@ -77,7 +77,6 @@ export default function EarningsTable() {
     },
   ];
 
-  // Dummy data
   const earningStats = [
     {
       key: "today",

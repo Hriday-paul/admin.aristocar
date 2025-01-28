@@ -8,18 +8,12 @@ import {
   useMarkAsReadMutation,
 } from "@/redux/api/notificationApi";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
-import { dummyData } from "./dummyData";
 
 export default function NotificationContainer() {
-  // const {
-  //   data: notificationRes,
-  //   refetch,
-  //   isLoading,
-  // } = useGetMyNotificationQuery({});
-  const notificationRes = dummyData, refetch = false, isLoading = false;
+
   // const [deleteFn] = useDeleteNotificationMutation();
   // const [updateNotification] = useMarkAsReadMutation();
-  const notificationData = notificationRes?.data || [];
+  const notificationData = [];
 
   const handelToRead = async () => {
     // try {

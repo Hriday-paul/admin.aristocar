@@ -2,18 +2,11 @@
 
 import { ConfigProvider } from "antd";
 import { Table } from "antd";
-import { UserX } from "lucide-react";
-import { Eye } from "lucide-react";
 import { Filter } from "lucide-react";
-import Image from "next/image";
-import userImage from "@/assets/images/user-avatar-lg.png";
-import { Tooltip } from "antd";
 import { Tag } from "antd";
 import { useState } from "react";
 import ProfileModal from "@/components/SharedModals/ProfileModal";
 import moment from "moment";
-
-// Dummy Data
 
 const RecentUserTable = ({ userDetails }) => {
   const [showProfileModal, setShowProfileModal] = useState(false);

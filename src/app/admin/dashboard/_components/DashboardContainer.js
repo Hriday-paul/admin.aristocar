@@ -10,7 +10,6 @@ import moment from "moment";
 import Transition from "./Transactions";
 import { FaUserFriends } from "react-icons/fa";
 import { CiDollar } from "react-icons/ci";
-import { dummyData } from "./dummyData";
 
 export default function DashboardContainer() {
   const [incomeYear, setIncomeYear] = useState(moment().format("yyyy"));

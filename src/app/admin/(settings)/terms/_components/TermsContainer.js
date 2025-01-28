@@ -29,10 +29,10 @@ export default function TermsContainer() {
         description: content,
       }).unwrap();
       if (res?.status == "success") {
-        SuccessModal("AboutUs is updated");
+        SuccessModal("Terms is updated");
       }
     } catch (error) {
-      ErrorModal("Error updating AboutUs");
+      ErrorModal("Error updating Terms");
     } finally {
       toast.dismiss(tastload);
     }

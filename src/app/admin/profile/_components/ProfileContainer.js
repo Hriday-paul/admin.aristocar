@@ -8,12 +8,10 @@ import { Tabs } from "antd";
 import { ConfigProvider } from "antd";
 import ChangePassForm from "./ChangePassForm";
 import EditProfileForm from "./EditProfileForm";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useGetProfileQuery } from "@/redux/api/userApi";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 import { useUpdateProfileMutation } from "@/redux/api/authApi";
-import { showImage } from "@/utils/showImage";
-import { dummyData } from "./dummyData";
 
 const { TabPane } = Tabs;
 
