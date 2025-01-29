@@ -3,7 +3,9 @@
 import FormWrapper from "@/components/Form/FormWrapper";
 import USelect from "@/components/Form/USelect";
 import { useUpdateUserMutation } from "@/redux/api/authApi";
+import { addAprovalSchema } from "@/schema/authSchema";
 import { ErrorModal, SuccessModal } from "@/utils/modalHook";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Modal } from "antd";
 import { Loader } from "lucide-react";
 import { useState } from "react";
@@ -47,7 +49,7 @@ function AddApproval({ children, userId }) {
                 }}
                 title={"Accept approval for listing"}
             >
-                <FormWrapper onSubmit={handelSubmit}>
+                <FormWrapper onSubmit={handelSubmit} resolver={zodResolver(addAprovalSchema)}>
 
                     <USelect
                         type="text"
@@ -55,7 +57,7 @@ function AddApproval({ children, userId }) {
                         label="Choose Invoice type "
                         required={true}
                         placeholder="Choose Invoice type"
-                        options={[{ label: "Romanian", vlaue: "Romanian VAT" }, { label: "EU with a valid VAT number", value: "Valid vat" }, { label: "Non-EU with a valid VAT number", value: "Invalid vat" }].map(item => {
+                        options={[{ label: "Romanian", value: "Romanian VAT" }, { label: "EU with a valid VAT number", value: "Valid vat" }, { label: "Non-EU with a valid VAT number", value: "Invalid vat" }].map(item => {
                             return {
                                 value: item?.value,
                                 label: item?.label

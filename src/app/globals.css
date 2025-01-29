@@ -123,3 +123,7 @@ body {
 .ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover{
   @apply !bg-gray-200
 }
+
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+  @apply !text-white
+}

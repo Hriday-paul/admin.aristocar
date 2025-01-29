@@ -57,6 +57,11 @@ export const addPackageSchema = z.object({
     .min(1, { message: "duration is required" }),
 });
 
+export const addAprovalSchema = z.object({
+  vat_type: z
+    .string({ required_error: "vat_type is required" })
+});
+
 
 export const addBrandSchema = z.object({
   brand_name: z
