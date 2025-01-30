@@ -23,7 +23,7 @@ const incomesApi = baseApi.injectEndpoints({
     }),
 
     getSubscriptionsBy_id: builder.query({
-      query: ({id , query}) => ({
+      query: ({ id, query }) => ({
         url: `/payments/paymentbyuserId/${id}?limit=${query?.limit || 20}`,
         method: "GET",
         // params: query,
@@ -31,7 +31,17 @@ const incomesApi = baseApi.injectEndpoints({
       // providesTags: [tagTypes.income],
     }),
 
+    getAllPayments: builder.mutation({
+      query: ({ year, month, query }) => ({
+        url: `/payments?year=${year}&month=${month}`,
+        method: "POST",
+        // params: query,
+      }),
+      // providesTags: [tagTypes.income],
+    }),
+
   }),
+
 });
 
-export const { useAllEarningsQuery, useGetDashboardDataQuery, useGetSubscriptionsBy_idQuery } = incomesApi;
+export const { useAllEarningsQuery, useGetDashboardDataQuery, useGetSubscriptionsBy_idQuery, useGetAllPaymentsMutation } = incomesApi;

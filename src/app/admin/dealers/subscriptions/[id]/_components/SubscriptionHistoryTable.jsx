@@ -1,13 +1,17 @@
 'use client'
+import SheetContent from '@/components/shared/Print/SheetContent';
 import { useGetSubscriptionsBy_idQuery } from '@/redux/api/income.api';
 import { ConfigProvider, Table } from 'antd';
 import moment from 'moment';
-import React from 'react';
+import React, { useRef } from 'react';
+import { MdOutlinePrint } from 'react-icons/md';
+import { useReactToPrint } from 'react-to-print';
 
 const SubscriptionHistoryTable = ({ id }) => {
     const query = { limit: 999999999999999 };
 
     const { isLoading, isFetching, data, isSuccess } = useGetSubscriptionsBy_idQuery({ id: id, query: query })
+    const contentRef = useRef(null);
 
     const columns = [
         {
@@ -48,6 +52,11 @@ const SubscriptionHistoryTable = ({ id }) => {
         },
     ];
 
+    const handlePrint = useReactToPrint({
+        contentRef: contentRef,
+        pageStyle: `@page { size: landscape; margin: 10mm;`
+    });
+
     return (
         <div>
 
@@ -70,6 +79,22 @@ const SubscriptionHistoryTable = ({ id }) => {
 
                 {/* Earning table */}
                 <section className="my-10">
+
+                    {isSuccess && <button onClick={handlePrint} className={`inline-flex items-center justify-center gap-x-1 rounded btn-default !px-4 !py-3 text-sm bg-white mb-4`}>
+                        <p className='flex items-center gap-x-1'>
+                            <MdOutlinePrint />
+                            <span>Print Payments</span>
+                        </p>
+                    </button>}
+
+                    {
+                        isSuccess && <div className="hidden overflow-hidden">
+                            <div ref={contentRef}>
+                                <SheetContent payments={data?.data?.data} />
+                            </div>
+                        </div>
+                    }
+
                     <Table
                         loading={isLoading}
                         style={{ overflowX: "auto" }}

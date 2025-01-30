@@ -22,6 +22,8 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import Link from "next/link";
 import AddFreeAccess from "./AddFreeAccess";
 import AddApproval from "./AddApproval";
+import { MdOutlinePrint } from "react-icons/md";
+import PrintAllPayments from "./PrintAllPayments";
 
 export default function AccDetailsTable() {
   const [searchText, setSearchText] = useState("");
@@ -344,13 +346,23 @@ export default function AccDetailsTable() {
         }
       }}
     >
-      <div className="w-1/3 mb-3 ml-auto gap-x-5">
-        <Input
-          placeholder="Search by name or email"
-          prefix={<Search className="mr-2 text-black" size={20} />}
-          className="h-11 !rounded-lg !border !text-base"
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+      <div className="w-full mb-3 ml-auto gap-x-5 flex flex-col lg:flex-row justify-between items-center">
+        <PrintAllPayments>
+          <button className={`inline-flex items-center justify-center gap-x-1 rounded btn-default !px-4 !py-3 text-sm bg-white`}>
+            <p className='flex items-center gap-x-1'>
+              <MdOutlinePrint />
+              <span>Print Payments</span>
+            </p>
+          </button>
+        </PrintAllPayments>
+        <div className="w-1/3">
+          <Input
+            placeholder="Search by name or email"
+            prefix={<Search className="mr-2 text-black" size={20} />}
+            className="h-11 !rounded-lg !border !text-base"
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
       </div>
 
       <Table

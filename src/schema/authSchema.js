@@ -86,3 +86,8 @@ export const addMostWantedSchema = z.object({
     .string({ required_error: "description is required" })
     .min(10, { message: "description min 10 character required" }),
 });
+
+export const printAllPaymentsSchema = z.object({
+  date: z
+    .string({ required_error: "year & month is required" }),
+});
