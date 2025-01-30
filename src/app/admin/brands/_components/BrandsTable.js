@@ -72,7 +72,7 @@ const BrandsTable = () => {
             title: "Logo",
             dataIndex: "image",
             render: (value) => {
-                return value ? <Image src={value} height={50} width={50} className='object-cover h-20 w-20 rounded-sm' alt='brand logo' /> : "N/A"
+                return value ? <Image src={value} height={500} width={500} className='object-cover h-20 w-20 rounded-sm' alt='brand logo' /> : "N/A"
             },
         },
         {
