@@ -1,7 +1,6 @@
 "use client";
 
-import { Badge, Button } from "antd";
-import { Bell } from "lucide-react";
+import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,19 +8,11 @@ import { Layout } from "antd";
 import { AlignJustify } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useGetProfileQuery } from "@/redux/api/userApi";
-import { useEffect } from "react";
-import { socket } from "@/socket";
-import toast from "react-hot-toast";
-import { useGetMyNotificationQuery } from "@/redux/api/notificationApi";
-import { showImage } from "@/utils/showImage";
 const { Header } = Layout;
 
 export default function HeaderContainer({ collapsed, setCollapsed }) {
   const pathname = usePathname();
   const navbarTitle = pathname.split("/admin")[1];
-  const { data: notificationData, refetch } = useGetMyNotificationQuery({
-    read: false,
-  });
 
   const router = useRouter();
   const userId = useSelector((state) => state.auth?.user?._id);

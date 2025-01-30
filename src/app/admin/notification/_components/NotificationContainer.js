@@ -1,13 +1,6 @@
 "use client";
-import userAvatar from "@/assets/images/user-avatar-lg.png";
 import NotificationCard from "./NotificationCard";
 import { Button, Empty } from "antd";
-import {
-  useDeleteNotificationMutation,
-  useGetMyNotificationQuery,
-  useMarkAsReadMutation,
-} from "@/redux/api/notificationApi";
-import { ErrorModal, SuccessModal } from "@/utils/modalHook";
 
 export default function NotificationContainer() {
 
