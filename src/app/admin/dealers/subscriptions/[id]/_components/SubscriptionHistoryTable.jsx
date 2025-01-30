@@ -1,9 +1,12 @@
 'use client'
+import InvoiceContent from '@/components/shared/Print/InvoiceContent';
+import Print from '@/components/shared/Print/Print';
 import SheetContent from '@/components/shared/Print/SheetContent';
 import { useGetSubscriptionsBy_idQuery } from '@/redux/api/income.api';
 import { ConfigProvider, Table } from 'antd';
 import moment from 'moment';
 import React, { useRef } from 'react';
+import { FaPrint } from 'react-icons/fa6';
 import { MdOutlinePrint } from 'react-icons/md';
 import { useReactToPrint } from 'react-to-print';
 
@@ -50,12 +53,27 @@ const SubscriptionHistoryTable = ({ id }) => {
             dataIndex: "subscription",
             render: (value) => (value?.package?.carCreateLimit || "N/A"),
         },
+        {
+            title: "Action",
+            render: (value) => (
+
+                <Print clicker={<button className='flex items-center gap-x-1'>
+                    <FaPrint />
+                    <span>Print</span>
+                </button>} title={'invoice'} >
+                    <InvoiceContent data={value} />
+                </Print>
+
+            ),
+        },
     ];
 
     const handlePrint = useReactToPrint({
         contentRef: contentRef,
         pageStyle: `@page { size: landscape; margin: 10mm;`
     });
+
+    console.log(data?.data?.data)
 
     return (
         <div>

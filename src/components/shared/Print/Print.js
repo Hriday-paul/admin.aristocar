@@ -4,16 +4,12 @@ import { useReactToPrint } from "react-to-print";
 import React, { useRef } from 'react';
 
 const Print = ({ children, clicker, title, landscape = false }) => {
-    const contentToPrint = useRef(null);
+    const contentRef = useRef(null);
     // const styles = useSelector((state: RootState) => state.styles);
 
     const handlePrint = useReactToPrint({
-        documentTitle: title,
-        content: () => contentToPrint.current,
-        onBeforePrint: () => console.log("before printing..."),
-        onAfterPrint: () => console.log("after printing..."),
-        removeAfterPrint: true,
-        pageStyle: `@page { size: ${landscape ? 'landscape' : 'auto'}; margin: 10mm; }`
+        contentRef: contentRef,
+        pageStyle: `@page { margin: 10mm;`
     });
 
     return (
@@ -22,7 +18,7 @@ const Print = ({ children, clicker, title, landscape = false }) => {
                 {clicker}
             </span>
             <div className="overflow-hidden h-0 hidden">
-                <div ref={contentToPrint}>
+                <div ref={contentRef}>
                     {children}
                 </div>
             </div>
